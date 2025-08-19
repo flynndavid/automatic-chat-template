@@ -1,4 +1,5 @@
 import { cookies } from 'next/headers';
+import type { Metadata } from 'next';
 
 import { AppSidebar } from '@/components/app-sidebar';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
@@ -7,6 +8,12 @@ import Script from 'next/script';
 import { DataStreamProvider } from '@/components/data-stream-provider';
 
 export const experimental_ppr = true;
+
+export const metadata: Metadata = {
+  title: 'Chat - HomeFax.ai',
+  description:
+    'Chat with your AI insurance policy assistant. Get instant answers about your coverage in plain English.',
+};
 
 export default async function Layout({
   children,

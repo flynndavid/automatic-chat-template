@@ -74,12 +74,19 @@ export const register = async (
 
     const supabase = await createClient();
 
+    // Determine the base URL for email redirects
+    const baseUrl =
+      process.env.NEXT_PUBLIC_SITE_URL ||
+      (process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL}`
+        : 'http://localhost:3000');
+
     // Sign up the user
     const { data, error } = await supabase.auth.signUp({
       email: validatedData.email,
       password: validatedData.password,
       options: {
-        emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/auth/callback`,
+        emailRedirectTo: `${baseUrl}/auth/callback`,
       },
     });
 
