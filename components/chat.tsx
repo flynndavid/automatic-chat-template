@@ -15,7 +15,7 @@ import { useArtifactSelector } from '@/hooks/use-artifact';
 import { unstable_serialize } from 'swr/infinite';
 import { getChatHistoryPaginationKey } from './sidebar-history';
 import { toast } from './toast';
-import type { Session } from 'next-auth';
+import type { User } from '@supabase/supabase-js';
 import { useSearchParams } from 'next/navigation';
 import { useChatVisibility } from '@/hooks/use-chat-visibility';
 import { useAutoResume } from '@/hooks/use-auto-resume';
@@ -29,7 +29,7 @@ export function Chat({
   initialChatModel,
   initialVisibilityType,
   isReadonly,
-  session,
+  user,
   autoResume,
 }: {
   id: string;
@@ -37,7 +37,7 @@ export function Chat({
   initialChatModel: string;
   initialVisibilityType: VisibilityType;
   isReadonly: boolean;
-  session: Session;
+  user: User;
   autoResume: boolean;
 }) {
   const { visibilityType } = useChatVisibility({
@@ -134,7 +134,7 @@ export function Chat({
           selectedModelId={initialChatModel}
           selectedVisibilityType={initialVisibilityType}
           isReadonly={isReadonly}
-          session={session}
+          user={user}
         />
 
         <Messages

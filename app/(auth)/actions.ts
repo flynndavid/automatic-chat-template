@@ -1,10 +1,8 @@
 'use server';
 
 import { z } from 'zod';
-
-import { createUser, getUser } from '@/lib/db/queries';
-
-import { signIn } from './auth';
+import { redirect } from 'next/navigation';
+import { createClient } from '@/lib/supabase/server';
 
 const authFormSchema = z.object({
   email: z.string().email(),
@@ -13,6 +11,7 @@ const authFormSchema = z.object({
 
 export interface LoginActionState {
   status: 'idle' | 'in_progress' | 'success' | 'failed' | 'invalid_data';
+  message?: string;
 }
 
 export const login = async (
@@ -25,11 +24,19 @@ export const login = async (
       password: formData.get('password'),
     });
 
-    await signIn('credentials', {
+    const supabase = await createClient();
+
+    const { error } = await supabase.auth.signInWithPassword({
       email: validatedData.email,
       password: validatedData.password,
-      redirect: false,
     });
+
+    if (error) {
+      return {
+        status: 'failed',
+        message: error.message,
+      };
+    }
 
     return { status: 'success' };
   } catch (error) {
@@ -37,7 +44,10 @@ export const login = async (
       return { status: 'invalid_data' };
     }
 
-    return { status: 'failed' };
+    return {
+      status: 'failed',
+      message: 'An unexpected error occurred',
+    };
   }
 };
 
@@ -49,6 +59,7 @@ export interface RegisterActionState {
     | 'failed'
     | 'user_exists'
     | 'invalid_data';
+  message?: string;
 }
 
 export const register = async (
@@ -61,17 +72,58 @@ export const register = async (
       password: formData.get('password'),
     });
 
-    const [user] = await getUser(validatedData.email);
+    const supabase = await createClient();
 
-    if (user) {
-      return { status: 'user_exists' } as RegisterActionState;
-    }
-    await createUser(validatedData.email, validatedData.password);
-    await signIn('credentials', {
+    // Sign up the user
+    const { data, error } = await supabase.auth.signUp({
       email: validatedData.email,
       password: validatedData.password,
-      redirect: false,
+      options: {
+        emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/auth/callback`,
+      },
     });
+
+    if (error) {
+      if (error.message.includes('already registered')) {
+        return {
+          status: 'user_exists',
+          message: 'User already exists',
+        };
+      }
+      return {
+        status: 'failed',
+        message: error.message,
+      };
+    }
+
+    // Check if user needs email confirmation
+    if (data.user && !data.session) {
+      // User created but needs email confirmation
+      return {
+        status: 'success',
+        message:
+          'Account created! Please check your email to confirm your account before signing in.',
+      };
+    }
+
+    // Create profile record if user was created successfully and confirmed
+    if (data.user) {
+      const { error: profileError } = await supabase.from('profiles').insert({
+        id: data.user.id,
+        email: validatedData.email,
+        user_type: 'regular',
+      });
+
+      if (profileError) {
+        console.error('Failed to create profile:', profileError);
+        // Don't fail registration if profile creation fails, user can still sign in
+      }
+
+      // If user is immediately confirmed and we have a session, redirect
+      if (data.session) {
+        redirect('/');
+      }
+    }
 
     return { status: 'success' };
   } catch (error) {
@@ -79,6 +131,15 @@ export const register = async (
       return { status: 'invalid_data' };
     }
 
-    return { status: 'failed' };
+    return {
+      status: 'failed',
+      message: 'An unexpected error occurred',
+    };
   }
+};
+
+export const signOut = async () => {
+  const supabase = await createClient();
+  await supabase.auth.signOut();
+  redirect('/login');
 };

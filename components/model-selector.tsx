@@ -15,22 +15,25 @@ import { cn } from '@/lib/utils';
 
 import { CheckCircleFillIcon, ChevronDownIcon } from './icons';
 import { entitlementsByUserType } from '@/lib/ai/entitlements';
-import type { Session } from 'next-auth';
+import type { User } from '@supabase/supabase-js';
 
 export function ModelSelector({
-  session,
+  user,
   selectedModelId,
   className,
 }: {
-  session: Session;
+  user: User;
   selectedModelId: string;
 } & React.ComponentProps<typeof Button>) {
   const [open, setOpen] = useState(false);
   const [optimisticModelId, setOptimisticModelId] =
     useOptimistic(selectedModelId);
 
-  const userType = session.user.type;
-  const { availableChatModelIds } = entitlementsByUserType[userType];
+  // For now, default to 'regular' user type since Supabase User doesn't have a 'type' field
+  const userType = 'regular';
+  const entitlements =
+    entitlementsByUserType[userType] || entitlementsByUserType.regular;
+  const { availableChatModelIds } = entitlements;
 
   const availableChatModels = chatModels.filter((chatModel) =>
     availableChatModelIds.includes(chatModel.id),

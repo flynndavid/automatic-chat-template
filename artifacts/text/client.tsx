@@ -10,9 +10,11 @@ import {
   RedoIcon,
   UndoIcon,
 } from '@/components/icons';
-import type { Suggestion } from '@/lib/db/schema';
+import type { suggestion } from '@/lib/db/schema';
 import { toast } from 'sonner';
 import { getSuggestions } from '../actions';
+
+type Suggestion = typeof suggestion.$inferSelect;
 
 interface TextArtifactMetadata {
   suggestions: Array<Suggestion>;

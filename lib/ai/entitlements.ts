@@ -1,5 +1,7 @@
-import type { UserType } from '@/app/(auth)/auth';
 import type { ChatModel } from './models';
+
+// Define UserType locally since we're not using next-auth anymore
+export type UserType = 'regular'; // Can be extended later with 'premium' etc.
 
 interface Entitlements {
   maxMessagesPerDay: number;
@@ -7,14 +9,6 @@ interface Entitlements {
 }
 
 export const entitlementsByUserType: Record<UserType, Entitlements> = {
-  /*
-   * For users without an account
-   */
-  guest: {
-    maxMessagesPerDay: 20,
-    availableChatModelIds: ['chat-model', 'chat-model-reasoning'],
-  },
-
   /*
    * For users with an account
    */

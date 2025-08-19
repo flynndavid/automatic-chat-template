@@ -1,0 +1,367 @@
+{
+  "createdAt": "2025-08-18T02:47:37.954Z",
+  "updatedAt": "2025-08-18T21:50:28.000Z",
+  "id": "pojnzMYl8EoSL6dV",
+  "name": "HomeFax 1.0",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "Hi there! I'm your HomeFax AI Assistant, and I can help you understand your homeowners insurance policy in plain language. I can explain what's covered (and what's not), help with claims guidance, track home maintenance, and connect you with your agent when needed. To get started, I'll need the email address associated with your insurance policy so I can look up your specific coverage details. What questions do you have about your homeowners insurance?\n\nHere are some demo policyholders you can use for testing:\nmorgan.ortiz1@example.com - Morgan Ortiz (2 policies: TN Liberty Lakes + CA Centurion Mutual)\njordan.evans4@example.com - Jordan Evans (2 policies: TN Centurion + CA Liberty Lakes)  \ndrew.smith21@example.com - Drew Smith (1 policy: CA Liberty Lakes)\ntaylor.vasquez19@example.com - Taylor Vasquez (1 policy: TX Liberty Lakes)\nelliot.nguyen7@example.com - Elliot Nguyen (1 policy: TN Liberty Lakes)",
+        "options": {
+          "allowFileUploads": false,
+          "inputPlaceholder": "Ask about your coverage, claims, or policy details...",
+          "subtitle": "Get instant answers about your homeowners insurance coverage",
+          "title": "HomeFax AI Assistant (DEMO) \ud83c\udfe0",
+          "responseMode": "lastNode"
+        }
+      },
+      "id": "95421925-c5ad-48bd-9638-c84ff5b5e3c6",
+      "cid": "Ikx1Y2FzIFBleXJpbiI",
+      "name": "Example Chat",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "creator": "Lucas Peyrin",
+      "position": [
+        1232,
+        432
+      ],
+      "webhookId": "e5616171-e3b5-4c39-81d4-67409f9fa60a",
+      "typeVersion": 1.1
+    },
+    {
+      "parameters": {
+        "options": {
+          "temperature": 0
+        }
+      },
+      "id": "c218a5da-bec7-4034-8d2b-f4bca34e551e",
+      "cid": "Ikx1Y2FzIFBleXJpbiI",
+      "name": "Connect Gemini",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "creator": "Lucas Peyrin",
+      "position": [
+        1344,
+        624
+      ],
+      "typeVersion": 1,
+      "credentials": {
+        "googlePalmApi": {
+          "id": "yJp0W04dueYXZHSN",
+          "name": "Google Gemini (n8n-api-creds)"
+        }
+      },
+      "notes": "\u00a9 2025 Lucas Peyrin"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Example Chat').item.json.sessionId }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        1520,
+        624
+      ],
+      "id": "76eeb96f-6942-4d3c-bb82-0a02b3b8d339",
+      "name": "Simple Memory",
+      "notesInFlow": false
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Search for a policyholder in the database using their email address",
+        "operation": "get",
+        "tableId": "policyholders",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "email",
+              "keyValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('conditions0_Value', `The email address to search for`, 'string') }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabaseTool",
+      "typeVersion": 1,
+      "position": [
+        1728,
+        640
+      ],
+      "id": "beac324a-97a5-4cd5-90de-5a8354950436",
+      "name": "Search Policyholder by Email",
+      "credentials": {
+        "supabaseApi": {
+          "id": "ReFMcY8N5op0JJEg",
+          "name": "Supabase: HomeFax"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Get all insurance policies for a specific policyholder using their policyholder_id. The ID of the policy holder can be found by using the Get Policyholder tool using their email address.",
+        "operation": "getAll",
+        "tableId": "policies",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "policyholder_id",
+              "condition": "eq",
+              "keyValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('conditions0_Field_Value', `The policyholder ID. The ID of the policy holder can be found by using the Get Policyholder tool using their email address.`, 'string') }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabaseTool",
+      "typeVersion": 1,
+      "position": [
+        1904,
+        640
+      ],
+      "id": "a388c502-6f5a-49e4-a1d8-e0e16672e15c",
+      "name": "Get Policies by Holder",
+      "credentials": {
+        "supabaseApi": {
+          "id": "ReFMcY8N5op0JJEg",
+          "name": "Supabase: HomeFax"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Get detailed information about a specific insurance policy",
+        "operation": "get",
+        "tableId": "policies",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "policy_number",
+              "keyValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('conditions0_Value', `The policy number (e.g., PTX001)`, 'string') }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabaseTool",
+      "typeVersion": 1,
+      "position": [
+        1728,
+        832
+      ],
+      "id": "25366b99-62c2-42a1-8f48-aba5fff9e305",
+      "name": "Get Policy Details",
+      "credentials": {
+        "supabaseApi": {
+          "id": "ReFMcY8N5op0JJEg",
+          "name": "Supabase: HomeFax"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Get complete policyholder profile",
+        "operation": "get",
+        "tableId": "policyholders",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "email",
+              "keyValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('conditions0_Value', `The email address of the policyholder (eg 'john.test@example.com')`, 'string') }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabaseTool",
+      "typeVersion": 1,
+      "position": [
+        1904,
+        832
+      ],
+      "id": "269f2cca-6d65-4050-8ef8-095b01696ddb",
+      "name": "Get Policyholder Profile",
+      "credentials": {
+        "supabaseApi": {
+          "id": "ReFMcY8N5op0JJEg",
+          "name": "Supabase: HomeFax"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Example Chat').item.json.chatInput }}",
+        "options": {
+          "systemMessage": "=# HomeFax AI Agent System Prompt\n\n<role>\nYou are the HomeFax AI Agent, a helpful assistant that explains homeowners insurance policies in plain language. You help homeowners understand their coverage, track home maintenance, and make informed insurance decisions. You are professional, trustworthy, and focused on providing clear, actionable information.\n</role>\n\n<instructions>\n<goal>\nHelp homeowners understand their specific insurance policies and coverage by accessing their policy data through email lookup. Provide accurate, policy-specific answers while maintaining records of all interactions.\n</goal>\n\n<context>\n### About HomeFax\nHomeFax is the \"Carfax for homes\" - an AI platform that reads insurance policies, tracks home history, and connects homeowners with their agents.\n\n### CRITICAL: Email Verification & Tool Workflow\n**Before answering any policy questions, you MUST:**\n1. **Request the user's email address** if not provided\n2. **Use `search_policyholder_by_email` tool** to get their policyholder profile and holder_id\n3. **Use the holder_id from step 2** with `get_policies_by_holder` tool to retrieve their policies\n4. **Confirm their identity** by stating their name and policy details\n5. **Only provide policy-specific information** after verification\n\nIf no policies are found for their email:\n- Explain that we don't have their policy information on file\n- Suggest they contact their insurance agent to get added to the system\n- Offer general insurance education only (no specific coverage advice)\n\n### CORE RULE: Professional Confirmation Required\n**Include this disclaimer when providing specific policy interpretations, coverage advice, or claims guidance:**\n\u26a0\ufe0f **IMPORTANT**: This information is for guidance only and must be confirmed by your licensed insurance agent. Policy interpretations can vary, and only your agent can provide definitive coverage determinations and handle claims or policy changes.\n\n**Use the disclaimer for:**\n- Coverage explanations (what is/isn't covered)\n- Deductible amounts and policy limits\n- Claims process guidance\n- Policy interpretation questions\n- Premium or coverage change advice\n\n**Do NOT use the disclaimer for:**\n- Identity verification (\"You're John Doe, correct?\")\n- General policy information (\"You have 2 policies\")\n- Process explanations (\"I'll look up your information\")\n- Contact information or next steps\n\n### Your Available Tools\nYou have access to these specific tools to help users:\n\n1. **search_policyholder_by_email**: Find a policyholder using their email address\n2. **get_policies_by_holder**: Get all policies for a specific policyholder using their holder_id\n3. **get_policy_details**: Get detailed information about a specific policy using policy_number\n4. **get_policyholder_profile**: Get complete policyholder profile including all their policies\n\n### Tool Usage Workflow\n**REQUIRED Standard Flow:**\n1. User asks a policy question \u2192 Request email if not provided\n2. Use `search_policyholder_by_email` \u2192 **Extract the holder_id** from the response (e.g., \"H0001\")\n3. Use `get_policies_by_holder` with the holder_id \u2192 Get all their policies\n4. Use `get_policy_details` for specific policy questions (if needed)\n5. **Always include the professional confirmation disclaimer**\n\n**Alternative Flows:**\n- For comprehensive overviews: Use `get_policyholder_profile` with holder_id\n- If user mentions a specific policy number: Use `get_policy_details` directly (but still verify identity first)\n\n**Key Point:** The holder_id from step 2 is REQUIRED for steps 3-4. Do not skip the email lookup step.\n\n### Your Core Functions\n1. **Policy Lookup**: Use tools to find user's policies by email address\n2. **Coverage Explanation**: Explain what is and isn't covered in plain language\n3. **Claims Guidance**: Help with claims process and documentation\n4. **Maintenance Tracking**: Document home improvements and repairs\n5. **Agent Connection**: Escalate complex issues to their agent\n\n### Response Format\n1. **Verify Identity**: Confirm user's name and policy after email lookup\n2. **Direct Answer**: Clear response based on their specific policy\n3. **Policy Reference**: Cite relevant sections (e.g., \"Section I - Coverage A\")\n4. **Next Steps**: Provide actionable recommendations\n5. **Agent Escalation**: When to contact their agent\n\n### Escalation Guidelines\nContact your agent for:\n- Filing claims\n- Policy changes or endorsements\n- Legal questions\n- Coverage disputes\n- Premium questions\n\n### Tone\n- Professional but friendly\n- Clear and jargon-free\n- Empathetic to insurance confusion\n- Confident in policy knowledge\n</context>\n\n<output_format>\n- Always request email address first if not provided\n- Use search_policyholder_by_email to get holder_id, then get_policies_by_holder\n- Verify identity by confirming name and policy details after lookup\n- Provide clear, policy-specific answers with references\n- **Include professional confirmation disclaimer only when providing coverage advice or policy interpretations**\n- Use bullet points for complex information\n- End with actionable next steps\n- Maintain a helpful, professional tone\n</output_format>\n\n<examples>\n**User**: \"Does my policy cover water damage?\"\n\n**HomeFax AI**: \"I'd be happy to help you understand your water damage coverage! To provide accurate information specific to your policy, I'll need your email address first. This allows me to look up your exact coverage details.\n\nCould you please provide the email address associated with your insurance policy?\"\n\n---\n\n**User**: \"My email is john.doe@example.com\"\n\n**HomeFax AI**: \"Thank you! Let me look up your policy information.\n\n*[Uses search_policyholder_by_email tool - gets holder_id: H0001]*\n*[Uses get_policies_by_holder tool with H0001]*\n*[Uses get_policy_details tool for PTX001]*\n\nI found your information! You're John Doe with policy PTX001 through Summit Home & Casualty, correct?\n\nRegarding water damage coverage on your HO-3 policy:\n\n**\u2705 Covered Water Damage:**\n\u2022 Burst pipes and plumbing accidents\n\u2022 Appliance malfunctions (washing machine, water heater)\n\u2022 Roof leaks from storm damage\n\n**\u274c Not Covered:**\n\u2022 Flood damage (requires separate flood insurance)\n\u2022 Gradual leaks or maintenance issues\n\u2022 Sewer backup (unless you have the endorsement)\n\n**Your Specific Coverage:** $300,000 personal property limit with $1,000 deductible\n\n**Policy Reference:** Section I - Perils Insured Against, Coverage C\n\n\u26a0\ufe0f **IMPORTANT**: This information is for guidance only and must be confirmed by your licensed insurance agent. Policy interpretations can vary, and only your agent can provide definitive coverage determinations and handle claims or policy changes.\n\n**Next Steps:**\n- Document any damage with photos immediately\n- Contact your agent Sarah Johnson at (555) 987-6543 to file a claim\n- Consider adding sewer backup coverage if you don't have it\n\nIs there a specific water damage situation you're dealing with that I can help you document?\"\n\n---\n\n**User**: \"My email is notfound@example.com\"\n\n**HomeFax AI**: \"*[Uses search_policyholder_by_email tool]*\n\nI don't see any policies associated with that email address in our system. This could mean:\n\n\u2022 Your policy hasn't been added to HomeFax yet\n\u2022 You might be using a different email address\n\u2022 Your agent hasn't set up your HomeFax access\n\n**Next Steps:**\n- Contact your insurance agent to get your policy added to HomeFax\n- Try a different email address if you have multiple\n- I can still provide general insurance education, but not specific coverage advice\n\nWould you like me to explain general water damage coverage types, or would you prefer to contact your agent first to get set up in our system?\"\n\n---\n\n**User**: \"Tell me about all my policies. My email is morgan.ortiz1@example.com\"\n\n**HomeFax AI**: \"I'll look up all your policies for you!\n\n*[Uses search_policyholder_by_email tool - gets holder_id: H0001]*\n*[Uses get_policyholder_profile tool with H0001]*\n\nGreat! I found your complete profile, Morgan Ortiz. You have 2 active policies:\n\n**Policy 1: PTN001**\n\u2022 Carrier: Summit Home & Casualty\n\u2022 Property: 1234 Oak Ave, Nashville, TN\n\u2022 Coverage A (Dwelling): $350,000\n\u2022 Annual Premium: $1,850\n\u2022 Status: Active\n\n**Policy 2: PCA005**  \n\u2022 Carrier: Liberty Lakes Insurance\n\u2022 Property: 5678 Pine Rd, Los Angeles, CA\n\u2022 Coverage A (Dwelling): $750,000\n\u2022 Annual Premium: $2,450\n\u2022 Status: Active\n\nBoth policies are HO-3 Special Form with comprehensive coverage.\n\nWould you like me to explain the differences between your Tennessee and California policies, or do you have questions about specific coverage on either property?\"\n\n---\n\n**User**: \"What's the difference between my two policies?\"\n\n**HomeFax AI**: \"I'll compare your Tennessee and California policies for you:\n\n**Key Differences:**\n\n**State-Specific Features:**\n\u2022 **Tennessee (PTN001)**: Standard replacement cost settlement, 30-day cancellation notice\n\u2022 **California (PCA005)**: Wildfire coverage included, earthquake exclusion, FAIR Plan eligibility\n\n**Coverage Amounts:**\n\u2022 **Tennessee**: $350,000 dwelling coverage, lower premium ($1,850)\n\u2022 **California**: $750,000 dwelling coverage, higher premium ($2,450) due to location risk\n\n**Deductibles:**\n\u2022 **Tennessee**: $1,000 flat deductible for all perils\n\u2022 **California**: $2,500 flat deductible, separate earthquake deductible if added\n\n\u26a0\ufe0f **IMPORTANT**: This information is for guidance only and must be confirmed by your licensed insurance agent. Policy interpretations can vary, and only your agent can provide definitive coverage determinations and handle claims or policy changes.\n\nWould you like me to explain any specific coverage differences in more detail?\"\n</examples>\n</instructions>\n"
+        }
+      },
+      "id": "332af12a-45ab-4e5d-8dab-da21ba2111f9",
+      "cid": "Ikx1Y2FzIFBleXJpbiI",
+      "name": "HomeFax AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "creator": "Lucas Peyrin",
+      "position": [
+        1520,
+        432
+      ],
+      "typeVersion": 2.2,
+      "notes": "\u00a9 2025 Lucas Peyrin"
+    }
+  ],
+  "connections": {
+    "Example Chat": {
+      "main": [
+        [
+          {
+            "node": "HomeFax AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Connect Gemini": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "HomeFax AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "HomeFax AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search Policyholder by Email": {
+      "ai_tool": [
+        [
+          {
+            "node": "HomeFax AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Policies by Holder": {
+      "ai_tool": [
+        [
+          {
+            "node": "HomeFax AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Policy Details": {
+      "ai_tool": [
+        [
+          {
+            "node": "HomeFax AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Policyholder Profile": {
+      "ai_tool": [
+        [
+          {
+            "node": "HomeFax AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {},
+  "staticData": null,
+  "meta": {
+    "templateId": "6270",
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "937968b0-b306-4f0f-84c3-ded156fb29ac",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "createdAt": "2025-08-18T02:47:37.960Z",
+      "updatedAt": "2025-08-18T02:47:37.960Z",
+      "role": "workflow:owner",
+      "workflowId": "pojnzMYl8EoSL6dV",
+      "projectId": "SsJ77XqTFvkqxOlH",
+      "project": {
+        "createdAt": "2025-07-24T20:20:03.364Z",
+        "updatedAt": "2025-07-24T20:21:18.272Z",
+        "id": "SsJ77XqTFvkqxOlH",
+        "name": "David Flynn <david@automatic.so>",
+        "type": "personal",
+        "icon": null,
+        "description": null,
+        "projectRelations": [
+          {
+            "createdAt": "2025-07-24T20:20:03.365Z",
+            "updatedAt": "2025-07-24T20:20:03.365Z",
+            "role": "project:personalOwner",
+            "userId": "85610757-d66c-4952-9c3c-9198f0f11bf5",
+            "projectId": "SsJ77XqTFvkqxOlH",
+            "user": {
+              "createdAt": "2025-07-24T20:20:02.635Z",
+              "updatedAt": "2025-08-18T05:52:06.000Z",
+              "id": "85610757-d66c-4952-9c3c-9198f0f11bf5",
+              "email": "david@automatic.so",
+              "firstName": "David",
+              "lastName": "Flynn",
+              "personalizationAnswers": {
+                "version": "v4",
+                "personalization_survey_submitted_at": "2025-07-24T20:22:00.961Z",
+                "personalization_survey_n8n_version": "1.103.2",
+                "automationGoalDevops": [
+                  "data-syncing",
+                  "reporting"
+                ],
+                "companySize": "<20",
+                "companyType": "systems-integrator",
+                "role": "engineering",
+                "reportedSource": "twitter"
+              },
+              "settings": {
+                "userActivated": true,
+                "easyAIWorkflowOnboarded": true,
+                "firstSuccessfulWorkflowId": "A3cvo7bacrDmsByU",
+                "userActivatedAt": 1753388930804,
+                "npsSurvey": {
+                  "waitingForResponse": true,
+                  "ignoredCount": 1,
+                  "lastShownAt": 1755485453489
+                }
+              },
+              "role": "global:owner",
+              "disabled": false,
+              "mfaEnabled": false,
+              "lastActiveAt": "2025-08-18",
+              "isPending": false
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "tags": []
+}

@@ -14,37 +14,56 @@ import {
 } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
+import { createClient } from '@/lib/supabase/server';
 
 import {
-  user,
   chat,
-  type User,
   document,
   type Suggestion,
   suggestion,
-  message,
-  vote,
+  messageV2 as message,
+  voteV2 as vote,
   type DBMessage,
   type Chat,
   stream,
 } from './schema';
 import type { ArtifactKind } from '@/components/artifact';
-import { generateUUID } from '../utils';
-import { generateHashedPassword } from './utils';
+
 import type { VisibilityType } from '@/components/visibility-selector';
 import { ChatSDKError } from '../errors';
 
-// Optionally, if not using email/pass login, you can
-// use the Drizzle adapter for Auth.js / NextAuth
-// https://authjs.dev/reference/adapter/drizzle
-
 // biome-ignore lint: Forbidden non-null assertion.
-const client = postgres(process.env.POSTGRES_URL!);
+const client = postgres(process.env.POSTGRES_URL!, {
+  ssl: 'require',
+});
 const db = drizzle(client);
 
-export async function getUser(email: string): Promise<Array<User>> {
+// Helper function to get current user
+async function getCurrentUser() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+
+  if (error || !user) {
+    throw new ChatSDKError('unauthorized:chat', 'User not authenticated');
+  }
+
+  return user;
+}
+
+export async function getUser(email: string) {
   try {
-    return await db.select().from(user).where(eq(user.email, email));
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('email', email)
+      .single();
+
+    if (error) throw error;
+    return data;
   } catch (error) {
     throw new ChatSDKError(
       'bad_request:database',
@@ -54,48 +73,30 @@ export async function getUser(email: string): Promise<Array<User>> {
 }
 
 export async function createUser(email: string, password: string) {
-  const hashedPassword = generateHashedPassword(password);
-
-  try {
-    return await db.insert(user).values({ email, password: hashedPassword });
-  } catch (error) {
-    throw new ChatSDKError('bad_request:database', 'Failed to create user');
-  }
-}
-
-export async function createGuestUser() {
-  const email = `guest-${Date.now()}`;
-  const password = generateHashedPassword(generateUUID());
-
-  try {
-    return await db.insert(user).values({ email, password }).returning({
-      id: user.id,
-      email: user.email,
-    });
-  } catch (error) {
-    throw new ChatSDKError(
-      'bad_request:database',
-      'Failed to create guest user',
-    );
-  }
+  // This function is no longer needed - user creation is handled by Supabase Auth
+  // in the register action
+  throw new ChatSDKError(
+    'bad_request:auth',
+    'User creation should be done through Supabase Auth',
+  );
 }
 
 export async function saveChat({
   id,
-  userId,
   title,
   visibility,
 }: {
   id: string;
-  userId: string;
   title: string;
   visibility: VisibilityType;
 }) {
   try {
+    const user = await getCurrentUser();
+
     return await db.insert(chat).values({
       id,
-      createdAt: new Date(),
-      userId,
+      createdAt: new Date().toISOString(),
+      userId: user.id,
       title,
       visibility,
     });
@@ -124,17 +125,16 @@ export async function deleteChatById({ id }: { id: string }) {
 }
 
 export async function getChatsByUserId({
-  id,
   limit,
   startingAfter,
   endingBefore,
 }: {
-  id: string;
   limit: number;
   startingAfter: string | null;
   endingBefore: string | null;
 }) {
   try {
+    const user = await getCurrentUser();
     const extendedLimit = limit + 1;
 
     const query = (whereCondition?: SQL<any>) =>
@@ -143,8 +143,8 @@ export async function getChatsByUserId({
         .from(chat)
         .where(
           whereCondition
-            ? and(whereCondition, eq(chat.userId, id))
-            : eq(chat.userId, id),
+            ? and(whereCondition, eq(chat.userId, user.id))
+            : eq(chat.userId, user.id),
         )
         .orderBy(desc(chat.createdAt))
         .limit(extendedLimit);
@@ -299,7 +299,7 @@ export async function saveDocument({
         kind,
         content,
         userId,
-        createdAt: new Date(),
+        createdAt: new Date().toISOString(),
       })
       .returning();
   } catch (error) {
@@ -354,13 +354,13 @@ export async function deleteDocumentsByIdAfterTimestamp({
       .where(
         and(
           eq(suggestion.documentId, id),
-          gt(suggestion.documentCreatedAt, timestamp),
+          gt(suggestion.documentCreatedAt, timestamp.toISOString()),
         ),
       );
 
     return await db
       .delete(document)
-      .where(and(eq(document.id, id), gt(document.createdAt, timestamp)))
+      .where(and(eq(document.id, id), gt(document.createdAt, timestamp.toISOString())))
       .returning();
   } catch (error) {
     throw new ChatSDKError(
@@ -426,7 +426,7 @@ export async function deleteMessagesByChatIdAfterTimestamp({
       .select({ id: message.id })
       .from(message)
       .where(
-        and(eq(message.chatId, chatId), gte(message.createdAt, timestamp)),
+        and(eq(message.chatId, chatId), gte(message.createdAt, timestamp.toISOString())),
       );
 
     const messageIds = messagesToDelete.map((message) => message.id);
@@ -485,7 +485,7 @@ export async function getMessageCountByUserId({
       .where(
         and(
           eq(chat.userId, id),
-          gte(message.createdAt, twentyFourHoursAgo),
+          gte(message.createdAt, twentyFourHoursAgo.toISOString()),
           eq(message.role, 'user'),
         ),
       )
@@ -510,7 +510,7 @@ export async function createStreamId({
   try {
     await db
       .insert(stream)
-      .values({ id: streamId, chatId, createdAt: new Date() });
+      .values({ id: streamId, chatId, createdAt: new Date().toISOString() });
   } catch (error) {
     throw new ChatSDKError(
       'bad_request:database',

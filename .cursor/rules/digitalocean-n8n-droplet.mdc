@@ -1,0 +1,117 @@
+---
+description: DigitalOcean droplet configuration and n8n setup documentation
+---
+
+# DigitalOcean n8n Droplet Configuration
+
+## Droplet Overview
+
+**Name:** `n8n-automatic`  
+**ID:** `509799883`  
+**Status:** Active  
+**Created:** July 24, 2025
+
+## Server Specifications
+
+- **Size:** `s-1vcpu-1gb-amd` (Basic AMD)
+- **CPU:** 1 vCPU
+- **Memory:** 1 GB RAM
+- **Storage:** 25 GB SSD (local disk)
+- **Monthly Cost:** $7.00 ($0.01042/hour)
+- **Region:** New York 1 (nyc1)
+
+## Network Configuration
+
+- **Public IP:** `167.99.238.145`
+- **Private IP:** `10.116.0.2`
+- **Domain:** `https://n8n.automatic.so`
+- **SSL:** Managed by Caddy (auto-renewal)
+
+## n8n Docker Setup
+
+### Architecture
+- **Docker Compose** setup with Caddy reverse proxy
+- **Location:** `/home/flynndavid/n8n-docker-caddy/`
+- **Configuration:** `docker-compose.yml` + `.env` file
+- **Data Persistence:** External Docker volumes
+
+### Current Version
+- **n8n Version:** 1.107.3 (updated January 2025)
+- **Image:** `docker.n8n.io/n8nio/n8n` (official, no version pinning)
+- **Caddy:** `caddy:latest`
+
+### Docker Volumes
+- `n8n_data`: Stores workflows, credentials, executions, user data
+- `caddy_data`: Stores SSL certificates and Caddy configuration
+
+### Environment Configuration
+```bash
+# From /home/flynndavid/n8n-docker-caddy/.env
+DATA_FOLDER=/home/flynndavid/n8n-docker-caddy
+DOMAIN_NAME=automatic.so
+SUBDOMAIN=n8n
+GENERIC_TIMEZONE=America/Chicago
+SSL_EMAIL=david@automatic.so
+```
+
+## Update Process
+
+### Safe Update Procedure
+```bash
+# Navigate to compose directory
+cd /home/flynndavid/n8n-docker-caddy/
+
+# Pull latest images
+docker compose pull
+
+# Stop containers
+docker compose down
+
+# Start with updated images
+docker compose up -d
+
+# Verify version
+docker exec n8n-docker-caddy-n8n-1 n8n --version
+```
+
+### Backup Strategy
+- **Droplet Snapshots:** Use DigitalOcean MCP tools to create full snapshots before updates
+- **Volume Persistence:** `n8n_data` and `caddy_data` volumes persist across container updates
+- **Workflow Export:** Additional backup via n8n UI (Settings → Import/Export)
+
+## Access Methods
+
+### Web Console
+- DigitalOcean dashboard → droplet → Console tab → Launch Console
+- No SSH setup required, browser-based terminal
+
+### SSH Access
+```bash
+ssh root@167.99.238.145
+```
+
+### n8n Interface
+- **URL:** `https://n8n.automatic.so`
+- **Port:** 5678 (internal), 443 (external via Caddy)
+
+## Key File Locations
+
+- **Docker Compose:** `/home/flynndavid/n8n-docker-caddy/docker-compose.yml`
+- **Environment:** `/home/flynndavid/n8n-docker-caddy/.env`
+- **Caddy Config:** `/home/flynndavid/n8n-docker-caddy/caddy_config/`
+- **n8n Data:** Docker volume `n8n_data` (mounted to `/home/node/.n8n`)
+
+## DigitalOcean MCP Tools Available
+
+- **Snapshots:** `mcp_digitalocean_snapshot-droplet`
+- **Restore:** `mcp_digitalocean_restore-droplet`
+- **Monitor:** `mcp_digitalocean_droplet-get`
+- **Management:** Various droplet lifecycle tools
+
+## Notes
+
+- **No external volumes attached** (`volume_ids: []`)
+- **Droplet agent enabled** for monitoring
+- **Private networking enabled**
+- **Base image:** "Docker on Ubuntu 22.04" (retired but functional)
+- **Backup recommendation:** Enable DigitalOcean backups for $0.70/month

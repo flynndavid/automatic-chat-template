@@ -6,16 +6,17 @@ import { useActionState, useEffect, useState } from 'react';
 
 import { AuthForm } from '@/components/auth-form';
 import { SubmitButton } from '@/components/submit-button';
+import { EmailConfirmationPending } from '@/components/email-confirmation-pending';
 
 import { register, type RegisterActionState } from '../actions';
 import { toast } from '@/components/toast';
-import { useSession } from 'next-auth/react';
 
 export default function Page() {
   const router = useRouter();
 
   const [email, setEmail] = useState('');
   const [isSuccessful, setIsSuccessful] = useState(false);
+  const [showEmailConfirmation, setShowEmailConfirmation] = useState(false);
 
   const [state, formAction] = useActionState<RegisterActionState, FormData>(
     register,
@@ -24,31 +25,53 @@ export default function Page() {
     },
   );
 
-  const { update: updateSession } = useSession();
-
   useEffect(() => {
     if (state.status === 'user_exists') {
-      toast({ type: 'error', description: 'Account already exists!' });
+      toast({
+        type: 'error',
+        description: state.message || 'Account already exists!',
+      });
     } else if (state.status === 'failed') {
-      toast({ type: 'error', description: 'Failed to create account!' });
+      toast({
+        type: 'error',
+        description: state.message || 'Failed to create account!',
+      });
     } else if (state.status === 'invalid_data') {
       toast({
         type: 'error',
         description: 'Failed validating your submission!',
       });
     } else if (state.status === 'success') {
-      toast({ type: 'success', description: 'Account created successfully!' });
-
       setIsSuccessful(true);
-      updateSession();
-      router.refresh();
+
+      // If there's a custom message, it means email confirmation is required
+      if (state.message?.includes('check your email')) {
+        setShowEmailConfirmation(true);
+      } else {
+        // User was auto-confirmed, redirect to home
+        toast({
+          type: 'success',
+          description: 'Account created successfully!',
+        });
+        router.push('/');
+        router.refresh();
+      }
     }
-  }, [state]);
+  }, [state.status, state.message, router]);
 
   const handleSubmit = (formData: FormData) => {
     setEmail(formData.get('email') as string);
     formAction(formData);
   };
+
+  if (showEmailConfirmation && email) {
+    return (
+      <EmailConfirmationPending
+        email={email}
+        onBackToLogin={() => router.push('/login')}
+      />
+    );
+  }
 
   return (
     <div className="flex h-dvh w-screen items-start pt-12 md:pt-0 md:items-center justify-center bg-background">

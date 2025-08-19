@@ -1,0 +1,35 @@
+---
+description: Supabase MCP project configuration and usage guidelines
+---
+
+# Supabase MCP Configuration
+
+## Project Details
+- **Project Name**: HomeFax
+- **Project ID**: `tbqneigukeehyvhvaddw`
+
+## Usage Guidelines
+
+When using any Supabase MCP tools (tools prefixed with `mcp_Supabase_`), always use the HomeFax project:
+
+### Required Project ID
+All Supabase MCP tool calls must use the project ID: `tbqneigukeehyvhvaddw`
+
+### Common MCP Tools
+- `mcp_Supabase_get_project` - Get project details
+- `mcp_Supabase_list_tables` - List database tables
+- `mcp_Supabase_execute_sql` - Execute SQL queries
+- `mcp_Supabase_apply_migration` - Apply database migrations
+- `mcp_Supabase_get_logs` - Get project logs
+- `mcp_Supabase_generate_typescript_types` - Generate TypeScript types
+
+### Example Usage
+```
+mcp_Supabase_get_project({"id": "tbqneigukeehyvhvaddw"})
+mcp_Supabase_list_tables({"project_id": "tbqneigukeehyvhvaddw"})
+```
+
+## Important Notes
+- The project ID is already configured in the MCP setup
+- Always verify you're working with the HomeFax project before making database changes
+- Use `mcp_Supabase_get_project` to confirm project details when needed

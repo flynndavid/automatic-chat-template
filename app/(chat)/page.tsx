@@ -4,14 +4,18 @@ import { Chat } from '@/components/chat';
 import { DEFAULT_CHAT_MODEL } from '@/lib/ai/models';
 import { generateUUID } from '@/lib/utils';
 import { DataStreamHandler } from '@/components/data-stream-handler';
-import { auth } from '../(auth)/auth';
+import { AuthSuccessHandler } from '@/components/auth-success-handler';
+import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 
 export default async function Page() {
-  const session = await auth();
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  if (!session) {
-    redirect('/api/auth/guest');
+  if (!user) {
+    redirect('/login');
   }
 
   const id = generateUUID();
@@ -29,10 +33,11 @@ export default async function Page() {
           initialChatModel={DEFAULT_CHAT_MODEL}
           initialVisibilityType="private"
           isReadonly={false}
-          session={session}
+          user={user}
           autoResume={false}
         />
         <DataStreamHandler />
+        <AuthSuccessHandler />
       </>
     );
   }
@@ -46,10 +51,11 @@ export default async function Page() {
         initialChatModel={modelIdFromCookie.value}
         initialVisibilityType="private"
         isReadonly={false}
-        session={session}
+        user={user}
         autoResume={false}
       />
       <DataStreamHandler />
+      <AuthSuccessHandler />
     </>
   );
 }

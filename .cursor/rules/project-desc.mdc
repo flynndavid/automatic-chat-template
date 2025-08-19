@@ -1,0 +1,57 @@
+---
+alwaysApply: true
+description: HomeFax project overview and research references
+---
+
+# HomeFax Project Overview
+
+HomeFax is an AI-powered insurance policy interpretation and home history platform that serves as "Carfax for homes." The platform combines AI technology with human oversight to help homeowners understand their insurance policies and maintain verifiable home history records.
+
+## Core Value Proposition
+
+**Problem**: 57% of homeowners don't understand their policy coverage, and 40% of claims face denial often due to poor documentation. Insurance agents spend significant time answering repetitive policy questions.
+
+**Solution**: AI-powered chatbot that interprets insurance policies in plain language, maintains persistent home maintenance records, and provides 24/7 homeowner support through insurance agents.
+
+## Business Model
+
+- **Primary Revenue**: Agency SaaS subscription at $10/policy/year
+- **Secondary Revenue**: Transaction reports at $25/report for real estate
+- **Target Market**: Independent insurance agencies (39,000+ in US) and their homeowner clients
+
+## Key Features
+
+1. **Policy AI Interpreter**: Converts complex insurance documents into plain English
+2. **Agent Review Dashboard**: Human-in-the-loop validation for AI responses
+3. **Home History Archive**: Verifiable maintenance and improvement tracking
+4. **Communication Registry**: Immutable log of all interactions for compliance
+5. **HomeFax Reports**: Comprehensive property history reports for real estate transactions
+
+## Comprehensive Research Available
+
+For detailed market analysis, competitive landscape, and business planning:
+
+- **Business Plan**: [HomeFax Comprehensive Business Plan.md](mdc:Research/HomeFax Comprehensive Business Plan.md) - Complete 150+ page business plan with financial projections, market analysis, and implementation timeline
+- **Executive Summary**: [HomeFax Overview.md](mdc:Research/HomeFax Overview.md) - Concise business overview and roadmap
+- **Market Research**: 
+  - [Deep Research Claude 4 Opus.md](mdc:Research/Market Research/Deep Research Claude 4 Opus.md) - Comprehensive market validation and competitive analysis
+  - [Deep Research Gemini.md](mdc:Research/Market Research/Deep Research Gemini.md) - Additional market insights and validation
+  - [Deep Research Grok 4.md](mdc:Research/Market Research/Deep Research Grok 4.md) - Market trends and opportunity analysis
+- **Strategic Planning**: 
+  - [Elevator Pitch.md](mdc:Meeting Notes/Elevator Pitch.md) - Core product positioning and key functions
+  - [Rathi & David Catch Up - August 13, 2025.md](mdc:Meeting Notes/Rathi & David Catch Up - August 13, 2025.md) - Recent strategic discussions
+
+## Current Status
+
+- Pre-seed stage seeking $500K funding
+- Pilot partnership with Valor Insurance planned for August 2025
+- MVP development focused on policy interpretation and agent workflows
+- Target: 15 paying agencies by end of Year 1
+
+## Key Success Metrics
+
+- Customer acquisition: Target 750 agencies by Year 5
+- Revenue projection: $38.7M by Year 5 with 61% EBITDA margins  
+- Unit economics: LTV:CAC ratio of 27x with sub-2 month payback periods
+
+Refer to the research documents above for comprehensive details on market opportunity, competitive analysis, financial projections, and implementation strategy.
