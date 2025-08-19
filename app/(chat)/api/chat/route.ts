@@ -19,6 +19,7 @@ import {
   saveMessages,
 } from '@/lib/db/queries';
 import { convertToUIMessages, generateUUID } from '@/lib/utils';
+import { handleN8nAgent } from './simple-n8n';
 import { generateTitleFromUserMessage } from '../../actions';
 import { createDocument } from '@/lib/ai/tools/create-document';
 import { updateDocument } from '@/lib/ai/tools/update-document';
@@ -145,11 +146,24 @@ export async function POST(request: Request) {
           role: 'user',
           parts: message.parts,
           attachments: [],
+          sessionId: id, // Add sessionId for user message too
           createdAt: new Date().toISOString(),
         },
       ],
     });
 
+    // Check if using n8n agent - Enhanced approach with user context
+    if (selectedChatModel === 'n8n-agent') {
+      return await handleN8nAgent(
+        message,
+        id,
+        saveMessages,
+        generateUUID,
+        user,
+      );
+    }
+
+    // Continue with existing streamText logic for other models...
     const streamId = generateUUID();
     await createStreamId({ streamId, chatId: id });
 
@@ -203,6 +217,7 @@ export async function POST(request: Request) {
             createdAt: new Date().toISOString(),
             attachments: [],
             chatId: id,
+            sessionId: null, // Regular models don't use sessionId
           })),
         });
       },
@@ -219,9 +234,9 @@ export async function POST(request: Request) {
           stream.pipeThrough(new JsonToSseTransformStream()),
         ),
       );
-    } else {
-      return new Response(stream.pipeThrough(new JsonToSseTransformStream()));
     }
+
+    return new Response(stream.pipeThrough(new JsonToSseTransformStream()));
   } catch (error) {
     if (error instanceof ChatSDKError) {
       return error.toResponse();

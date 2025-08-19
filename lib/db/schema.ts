@@ -325,6 +325,7 @@ export const policyholders = pgTable(
     phone: text().notNull(),
     mailingAddress: jsonb('mailing_address').notNull(),
     additionalInfo: jsonb('additional_info').default({}),
+    profileId: uuid('profile_id'),
     createdAt: timestamp('created_at', {
       withTimezone: true,
       mode: 'string',
@@ -351,9 +352,18 @@ export const policyholders = pgTable(
       idxPolicyholdersMailingAddress: index(
         'idx_policyholders_mailing_address',
       ).using('gin', table.mailingAddress.asc().nullsLast()),
+      idxPolicyholdersProfileId: index('idx_policyholders_profile_id').using(
+        'btree',
+        table.profileId.asc().nullsLast(),
+      ),
       policyholdersHolderIdKey: unique('policyholders_holder_id_key').on(
         table.holderId,
       ),
+      policyholdersProfileIdFkey: foreignKey({
+        columns: [table.profileId],
+        foreignColumns: [profiles.id],
+        name: 'policyholders_profile_id_fkey',
+      }),
     };
   },
 );
@@ -426,6 +436,7 @@ export const messageV2 = pgTable(
     role: varchar().notNull(),
     parts: jsonb().notNull(),
     attachments: jsonb().notNull(),
+    sessionId: varchar('session_id'),
     createdAt: timestamp({ mode: 'string' }).defaultNow().notNull(),
   },
   (table) => {

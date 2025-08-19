@@ -1172,3 +1172,88 @@ export const WarningIcon = ({ size = 16 }: { size?: number }) => {
     </svg>
   );
 };
+
+export const FileTextIcon = ({ size = 16 }: { size?: number }) => (
+  <svg
+    height={size}
+    strokeLinejoin="round"
+    viewBox="0 0 16 16"
+    width={size}
+    style={{ color: 'currentcolor' }}
+  >
+    <path
+      fill="currentColor"
+      fillRule="evenodd"
+      d="M3.5 1C2.67157 1 2 1.67157 2 2.5V13.5C2 14.3284 2.67157 15 3.5 15H12.5C13.3284 15 14 14.3284 14 13.5V5.41421C14 5.01639 13.842 4.63486 13.5607 4.35355L10.6464 1.43934C10.3651 1.15804 9.98361 1 9.58579 1H3.5ZM3.5 2.5H9V5C9 5.55228 9.44772 6 10 6H12.5V13.5H3.5V2.5ZM10.5 4.5V3.20711L12.2929 5H10.5V4.5ZM5 8.5H11V10H5V8.5ZM5 11H9V12.5H5V11Z"
+      clipRule="evenodd"
+    />
+  </svg>
+);
+
+export const ExternalLinkIcon = ({ size = 16 }: { size?: number }) => (
+  <svg
+    height={size}
+    strokeLinejoin="round"
+    viewBox="0 0 16 16"
+    width={size}
+    style={{ color: 'currentcolor' }}
+  >
+    <path
+      fill="currentColor"
+      fillRule="evenodd"
+      d="M6.22 8.72a.75.75 0 0 1 1.06 1.06L5.56 11.5H9.25a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75V6.75a.75.75 0 0 1 1.5 0v3.69l1.72-1.72ZM9.5 3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 1 0V4h4v8H10v-.5a.5.5 0 0 0-1 0v1a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-5Z"
+      clipRule="evenodd"
+    />
+  </svg>
+);
+
+export const CalendarIcon = ({ size = 16 }: { size?: number }) => (
+  <svg
+    height={size}
+    strokeLinejoin="round"
+    viewBox="0 0 16 16"
+    width={size}
+    style={{ color: 'currentcolor' }}
+  >
+    <path
+      fill="currentColor"
+      fillRule="evenodd"
+      d="M4.5 1V1.75V2.5H3C2.17157 2.5 1.5 3.17157 1.5 4V13C1.5 13.8284 2.17157 14.5 3 14.5H13C13.8284 14.5 14.5 13.8284 14.5 13V4C14.5 3.17157 13.8284 2.5 13 2.5H11.5V1.75V1H10V1.75V2.5H6V1.75V1H4.5ZM3 4H13V5.5H3V4ZM3 7H13V13H3V7Z"
+      clipRule="evenodd"
+    />
+  </svg>
+);
+
+export const DollarSignIcon = ({ size = 16 }: { size?: number }) => (
+  <svg
+    height={size}
+    strokeLinejoin="round"
+    viewBox="0 0 16 16"
+    width={size}
+    style={{ color: 'currentcolor' }}
+  >
+    <path
+      fill="currentColor"
+      fillRule="evenodd"
+      d="M8.75 1.75V3.02C10.1 3.18 11.25 4.07 11.25 5.5C11.25 6.19 10.94 6.75 10.44 7.13C9.94 7.51 9.19 7.75 8.25 7.75H7.75C7.31 7.75 7.06 7.81 6.94 7.88C6.81 7.94 6.75 8.06 6.75 8.25C6.75 8.44 6.81 8.56 6.94 8.63C7.06 8.69 7.31 8.75 7.75 8.75H8.75C9.44 8.75 10 9.31 10 10C10 10.69 9.44 11.25 8.75 11.25V12.25H7.25V11.25C5.9 11.09 4.75 10.2 4.75 8.75C4.75 8.06 5.06 7.5 5.56 7.12C6.06 6.74 6.81 6.5 7.75 6.5H8.25C8.69 6.5 8.94 6.44 9.06 6.37C9.19 6.31 9.25 6.19 9.25 6C9.25 5.81 9.19 5.69 9.06 5.62C8.94 5.56 8.69 5.5 8.25 5.5H7.25C6.56 5.5 6 4.94 6 4.25C6 3.56 6.56 3 7.25 3V1.75H8.75Z"
+      clipRule="evenodd"
+    />
+  </svg>
+);
+
+export const ShieldIcon = ({ size = 16 }: { size?: number }) => (
+  <svg
+    height={size}
+    strokeLinejoin="round"
+    viewBox="0 0 16 16"
+    width={size}
+    style={{ color: 'currentcolor' }}
+  >
+    <path
+      fill="currentColor"
+      fillRule="evenodd"
+      d="M8 1L8.5 1.13397L12.5 2.38397L13 2.5V3V7C13 9.76142 10.7614 12 8 12C5.23858 12 3 9.76142 3 7V3V2.5L3.5 2.38397L7.5 1.13397L8 1ZM4.5 3.61803V7C4.5 8.933 6.067 10.5 8 10.5C9.933 10.5 11.5 8.933 11.5 7V3.61803L8 2.61803L4.5 3.61803ZM7.03033 6.46967L6.5 5.93934L5.43934 7L5.96967 7.53033L7.25 8.81066L10.5303 5.53033L11.0607 5L10 3.93934L9.46967 4.46967L7.25 6.68934L7.03033 6.46967Z"
+      clipRule="evenodd"
+    />
+  </svg>
+);

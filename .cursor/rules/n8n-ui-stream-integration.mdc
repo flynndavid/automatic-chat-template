@@ -1,0 +1,59 @@
+---
+description: "n8n integration with AI SDK UI message streams for real-time frontend updates"
+---
+
+# n8n Integration with AI SDK UI Message Streams
+
+When integrating n8n workflows with the AI SDK's `useChat` hook, return Server-Sent Events (SSE) instead of plain JSON to ensure real-time frontend updates.
+
+## Problem
+
+- n8n responses returned as JSON don't trigger `useChat` hook updates
+- Frontend requires page refresh to see new messages
+- `onFinish` callback never fires
+
+## Solution
+
+Convert n8n responses to UI message stream format:
+
+```typescript
+// After collecting full n8n response and saving to database
+const uiParts = [
+  { type: "start" },
+  { type: "start-step" },
+  { type: "text-start", id: "text-1" },
+  { type: "text-delta", id: "text-1", delta: fullResponse },
+  { type: "text-end", id: "text-1" },
+  { type: "finish-step" },
+  { type: "finish" },
+];
+
+const encoder = new TextEncoder();
+const stream = new ReadableStream<Uint8Array>({
+  start(controller) {
+    for (const part of uiParts) {
+      controller.enqueue(encoder.encode(`data: ${JSON.stringify(part)}\n\n`));
+    }
+    controller.enqueue(encoder.encode("data: [DONE]\n\n"));
+    controller.close();
+  },
+});
+
+return new Response(stream, {
+  status: 200,
+  headers: {
+    "Content-Type": "text/event-stream",
+    "Cache-Control": "no-cache",
+    Connection: "keep-alive",
+    "x-vercel-ai-ui-message-stream": "v1",
+    "X-Accel-Buffering": "no",
+  },
+});
+```
+
+## Key Points
+
+- Use `text-delta` with full response content (not streaming individual chunks)
+- Include required SSE headers for AI SDK compatibility
+- `onFinish` callback triggers → SWR revalidates → UI updates automatically
+- No frontend code changes needed

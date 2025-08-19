@@ -150,3 +150,55 @@ export const signOut = async () => {
   await supabase.auth.signOut();
   redirect('/login');
 };
+
+// Quick login for development/demo purposes - policyholder accounts
+export interface QuickLoginActionState {
+  status: 'idle' | 'in_progress' | 'success' | 'failed';
+  message?: string;
+}
+
+export const quickLogin = async (
+  _: QuickLoginActionState,
+  formData: FormData,
+): Promise<QuickLoginActionState> => {
+  try {
+    const email = formData.get('email') as string;
+
+    // Only allow demo policyholder accounts
+    const allowedEmails = [
+      'morgan.ortiz1@example.com',
+      'elliot.iverson2@example.com',
+      'jordan.evans4@example.com',
+      'morgan.cooper5@example.com',
+      'rowan.turner6@example.com',
+    ];
+
+    if (!allowedEmails.includes(email)) {
+      return {
+        status: 'failed',
+        message: 'Invalid demo account',
+      };
+    }
+
+    const supabase = await createClient();
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password: 'demo123', // All demo accounts use this password
+    });
+
+    if (error) {
+      return {
+        status: 'failed',
+        message: error.message,
+      };
+    }
+
+    return { status: 'success' };
+  } catch (error) {
+    return {
+      status: 'failed',
+      message: 'An unexpected error occurred',
+    };
+  }
+};

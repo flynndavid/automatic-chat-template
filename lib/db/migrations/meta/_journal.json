@@ -15,6 +15,13 @@
       "when": 1755580191809,
       "tag": "0001_married_squadron_sinister",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1755605206692,
+      "tag": "0002_add_session_id_to_messages",
+      "breakpoints": true
     }
   ]
 }

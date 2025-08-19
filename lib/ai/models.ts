@@ -1,4 +1,4 @@
-export const DEFAULT_CHAT_MODEL: string = 'chat-model';
+export const DEFAULT_CHAT_MODEL: string = 'n8n-agent';
 
 export interface ChatModel {
   id: string;
@@ -16,5 +16,11 @@ export const chatModels: Array<ChatModel> = [
     id: 'chat-model-reasoning',
     name: 'Reasoning model',
     description: 'Uses advanced reasoning',
+  },
+  {
+    id: 'n8n-agent',
+    name: 'HomeFax Agent',
+    description:
+      'Specialized insurance policy AI with database access and routing',
   },
 ];

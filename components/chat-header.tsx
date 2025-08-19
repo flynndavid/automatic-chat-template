@@ -1,35 +1,21 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useWindowSize } from 'usehooks-ts';
 
-import { ModelSelector } from '@/components/model-selector';
 import { SidebarToggle } from '@/components/sidebar-toggle';
 import { Button } from '@/components/ui/button';
-import { PlusIcon } from './icons';
-import { useSidebar } from './ui/sidebar';
+import { PlusIcon, FileTextIcon } from './icons';
 import { memo } from 'react';
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
-import { type VisibilityType, VisibilitySelector } from './visibility-selector';
+import { PolicySheet } from './policy-sheet';
 import type { User } from '@supabase/supabase-js';
 
 function PureChatHeader({
-  chatId,
-  selectedModelId,
-  selectedVisibilityType,
-  isReadonly,
   user,
 }: {
-  chatId: string;
-  selectedModelId: string;
-  selectedVisibilityType: VisibilityType;
-  isReadonly: boolean;
   user: User;
 }) {
   const router = useRouter();
-  const { open } = useSidebar();
-
-  const { width: windowWidth } = useWindowSize();
 
   return (
     <header className="flex sticky top-0 bg-background py-1.5 items-center px-2 md:px-2 gap-2">
@@ -52,25 +38,22 @@ function PureChatHeader({
         <TooltipContent>New Chat</TooltipContent>
       </Tooltip>
 
-      {!isReadonly && (
-        <ModelSelector
-          user={user}
-          selectedModelId={selectedModelId}
-          className="order-1 md:order-2"
-        />
-      )}
-
-      {!isReadonly && (
-        <VisibilitySelector
-          chatId={chatId}
-          selectedVisibilityType={selectedVisibilityType}
-          className="order-1 md:order-3"
-        />
-      )}
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <PolicySheet user={user}>
+            <Button
+              variant="outline"
+              className="order-1 md:order-2 px-2 h-[34px] flex items-center gap-2"
+            >
+              <FileTextIcon />
+              <span className="hidden sm:inline">Policies</span>
+            </Button>
+          </PolicySheet>
+        </TooltipTrigger>
+        <TooltipContent>View My Policies</TooltipContent>
+      </Tooltip>
     </header>
   );
 }
 
-export const ChatHeader = memo(PureChatHeader, (prevProps, nextProps) => {
-  return prevProps.selectedModelId === nextProps.selectedModelId;
-});
+export const ChatHeader = memo(PureChatHeader);

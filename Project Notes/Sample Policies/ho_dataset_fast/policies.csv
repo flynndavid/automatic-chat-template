@@ -1,0 +1,31 @@
+policy_id,holder_id,state_code,state,carrier,effective_date,expiration_date,coverage_form,annual_premium,deductible_type,deductible_value,has_mortgagee,mortgagee_name,mortgagee_loan_no,status
+PTN001,H0001,TN,Tennessee,Liberty Lakes Insurance,2025-04-16,2025-04-16,HO-3,3209.52,flat,1000.0,False,,,Active
+PTN002,H0002,TN,Tennessee,Liberty Lakes Insurance,2024-06-17,2024-06-17,HO-3,3049.05,flat,1500.0,True,First National Mortgage,3177759181,Pending Renewal
+PTN003,H0003,TN,Tennessee,Summit Home & Casualty,2025-04-01,2025-04-01,HO-3,1419.52,flat,1000.0,False,,,Pending Renewal
+PTN004,H0004,TN,Tennessee,Centurion Mutual,2025-09-20,2025-09-20,HO-3,3209.52,flat,2500.0,True,AmeriHome Lending,2451679724,Active
+PTN005,H0005,TN,Tennessee,Liberty Lakes Insurance,2024-09-02,2024-09-02,HO-3,2347.86,flat,1000.0,False,,,Active
+PTN006,H0006,TN,Tennessee,Liberty Lakes Insurance,2024-09-17,2024-09-17,HO-3,3610.0,flat,1500.0,False,,,Pending Renewal
+PTN007,H0007,TN,Tennessee,Liberty Lakes Insurance,2025-04-21,2025-04-21,HO-3,2582.64,flat,1000.0,True,First National Mortgage,2623669411,Pending Renewal
+PTN008,H0008,TN,Tennessee,Centurion Mutual,2025-06-15,2025-06-15,HO-3,4180.0,flat,1000.0,True,United Bank Home Loans,7994248048,Active
+PTN009,H0009,TN,Tennessee,Liberty Lakes Insurance,2024-03-10,2024-03-10,HO-3,1811.33,flat,2500.0,True,United Bank Home Loans,8837875948,Active
+PTN010,H0010,TN,Tennessee,Summit Home & Casualty,2024-03-01,2024-03-01,HO-3,731.5,flat,2500.0,False,,,Active
+PTX001,H0011,TX,Texas,Summit Home & Casualty,2024-07-19,2024-07-19,HO-3,3018.56,percent_wind_hail,0.01,False,,,Pending Renewal
+PTX002,H0012,TX,Texas,Centurion Mutual,2025-06-27,2025-06-27,HO-3,1419.52,flat,1500.0,False,,,Pending Renewal
+PTX003,H0013,TX,Texas,Summit Home & Casualty,2024-04-06,2024-04-06,HO-3,1348.55,flat,1000.0,False,,,Pending Renewal
+PTX004,H0014,TX,Texas,Summit Home & Casualty,2025-01-21,2025-01-21,HO-3,3353.95,flat,1500.0,True,AmeriHome Lending,6109927757,Active
+PTX005,H0015,TX,Texas,Liberty Lakes Insurance,2024-12-14,2025-12-14,HO-3,2224.29,percent_wind_hail,0.02,False,,,Pending Renewal
+PTX006,H0016,TX,Texas,Centurion Mutual,2024-10-25,2024-10-25,HO-3,693.0,percent_wind_hail,0.03,True,First National Mortgage,6619421111,Pending Renewal
+PTX007,H0017,TX,Texas,Liberty Lakes Insurance,2024-12-21,2025-12-21,HO-3,3530.48,flat,2500.0,True,First National Mortgage,9415420673,Pending Renewal
+PTX008,H0018,TX,Texas,Liberty Lakes Insurance,2024-11-18,2024-11-18,HO-3,1290.48,flat,1000.0,True,First National Mortgage,6649512599,Pending Renewal
+PTX009,H0019,TX,Texas,Liberty Lakes Insurance,2025-12-14,2026-12-14,HO-3,3610.0,flat,1000.0,False,,,Active
+PTX010,H0020,TX,Texas,Centurion Mutual,2024-03-25,2024-03-25,HO-3,2718.57,flat,1000.0,True,AmeriHome Lending,1362690779,Active
+PCA001,H0021,CA,California,Liberty Lakes Insurance,2025-09-13,2025-09-13,HO-3,3049.05,flat,1500.0,False,,,Pending Renewal
+PCA002,H0022,CA,California,Summit Home & Casualty,2025-10-26,2025-10-26,HO-3,3800.0,flat,1000.0,True,First National Mortgage,8634969708,Pending Renewal
+PCA003,H0023,CA,California,Liberty Lakes Insurance,2025-09-18,2025-09-18,HO-3,3610.0,flat,1000.0,False,,,Active
+PCA004,H0024,CA,California,Summit Home & Casualty,2025-07-12,2025-07-12,HO-3,1094.76,flat,1000.0,True,AmeriHome Lending,2170004674,Pending Renewal
+PCA005,H0001,CA,California,Centurion Mutual,2025-07-23,2025-07-23,HO-3,2582.64,flat,1500.0,True,First National Mortgage,6784439425,Active
+PCA006,H0002,CA,California,Centurion Mutual,2024-06-28,2024-06-28,HO-3,3971.0,flat,2500.0,True,First National Mortgage,4714859208,Pending Renewal
+PCA007,H0003,CA,California,Liberty Lakes Insurance,2025-11-14,2025-11-14,HO-3,1225.95,flat,500.0,True,United Bank Home Loans,7169146234,Active
+PCA008,H0004,CA,California,Liberty Lakes Insurance,2024-11-17,2024-11-17,HO-3,3353.95,flat,2500.0,True,United Bank Home Loans,4492280769,Active
+PCA009,H0005,CA,California,Liberty Lakes Insurance,2024-07-10,2024-07-10,HO-3,1348.55,flat,2500.0,True,First National Mortgage,4108602684,Pending Renewal
+PCA010,H0006,CA,California,Liberty Lakes Insurance,2024-05-06,2024-05-06,HO-3,3971.0,flat,2500.0,True,United Bank Home Loans,2702091301,Pending Renewal

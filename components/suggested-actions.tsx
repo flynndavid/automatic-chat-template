@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Button } from './ui/button';
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import type { UseChatHelpers } from '@ai-sdk/react';
 import type { VisibilityType } from './visibility-selector';
 import type { ChatMessage } from '@/lib/types';
@@ -18,28 +18,83 @@ function PureSuggestedActions({
   sendMessage,
   selectedVisibilityType,
 }: SuggestedActionsProps) {
-  const suggestedActions = [
+  // Pool of 10 HomeFax-specific suggestions for policyholders
+  const allSuggestions = [
     {
-      title: 'What are the advantages',
-      label: 'of using Next.js?',
-      action: 'What are the advantages of using Next.js?',
+      title: 'Does my policy cover',
+      label: 'water damage from burst pipes?',
+      action: 'Does my policy cover water damage from burst pipes?',
     },
     {
-      title: 'Write code to',
-      label: `demonstrate djikstra's algorithm`,
-      action: `Write code to demonstrate djikstra's algorithm`,
+      title: 'How do I file a claim',
+      label: 'for storm damage?',
+      action: 'How do I file a claim for storm damage?',
     },
     {
-      title: 'Help me write an essay',
-      label: `about silicon valley`,
-      action: `Help me write an essay about silicon valley`,
+      title: 'What home improvements',
+      label: 'affect my coverage?',
+      action: 'What home improvements affect my coverage?',
     },
     {
-      title: 'What is the weather',
-      label: 'in San Francisco?',
-      action: 'What is the weather in San Francisco?',
+      title: 'Explain my deductible',
+      label: 'options and amounts',
+      action: 'Explain my deductible options and how they work',
+    },
+    {
+      title: 'What documentation',
+      label: 'do I need for claims?',
+      action: 'What documentation do I need when filing a claim?',
+    },
+    {
+      title: 'Does my policy cover',
+      label: 'liability for injuries?',
+      action:
+        'Does my policy cover liability if someone gets injured on my property?',
+    },
+    {
+      title: "How does my home's age",
+      label: 'affect my premium?',
+      action:
+        "How does my home's age and condition affect my insurance premium?",
+    },
+    {
+      title: "What's not covered",
+      label: "by my homeowner's insurance?",
+      action: "What's not covered by my homeowner's insurance policy?",
+    },
+    {
+      title: 'How do I update coverage',
+      label: 'after renovations?',
+      action:
+        'How do I update my coverage after home renovations or improvements?',
+    },
+    {
+      title: 'How should I prepare',
+      label: 'for hurricane season?',
+      action:
+        'What should I do to prepare my home and insurance for hurricane season?',
     },
   ];
+
+  // Deterministically select 4 suggestions based on chatId to avoid hydration mismatch
+  const suggestedActions = useMemo(() => {
+    // Create a simple hash from chatId for consistent pseudo-random behavior
+    const hash = chatId.split('').reduce((acc, char) => {
+      const result = (acc << 5) - acc + char.charCodeAt(0);
+      return result & result; // Convert to 32bit integer
+    }, 0);
+
+    // Use the hash to create a deterministic shuffle
+    const shuffled = [...allSuggestions];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      // Generate deterministic "random" index based on hash and position
+      const pseudoRandom = Math.abs((hash + i) * 9301 + 49297) % 233280;
+      const j = pseudoRandom % (i + 1);
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+
+    return shuffled.slice(0, 4);
+  }, [chatId]); // Re-shuffle when chatId changes (new chat)
 
   return (
     <div
