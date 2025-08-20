@@ -534,6 +534,25 @@ export const ArrowUpIcon = ({ size = 16 }: { size?: number }) => {
   );
 };
 
+export const ArrowLeftIcon = ({ size = 16 }: { size?: number }) => {
+  return (
+    <svg
+      height={size}
+      strokeLinejoin="round"
+      viewBox="0 0 16 16"
+      width={size}
+      style={{ color: 'currentcolor' }}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M1.39644 8.70711C1.00592 8.31659 1.00592 7.68342 1.39644 7.2929L6.46966 2.21968L6.99999 1.68935L8.06065 2.75001L7.53032 3.28034L3.56065 7.25001H14.25H15V8.75001H14.25H3.56065L7.53032 12.7197L8.06065 13.25L6.99999 14.3107L6.46966 13.7803L1.39644 8.70711Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+};
+
 export const StopIcon = ({ size = 16 }: { size?: number }) => {
   return (
     <svg

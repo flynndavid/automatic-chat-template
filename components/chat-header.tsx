@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 
 import { SidebarToggle } from '@/components/sidebar-toggle';
 import { Button } from '@/components/ui/button';
-import { PlusIcon, FileTextIcon } from './icons';
+import { PlusIcon, FileTextIcon, CodeIcon } from './icons';
 import { memo } from 'react';
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
 import { PolicySheet } from './policy-sheet';
@@ -51,6 +51,19 @@ function PureChatHeader({
           </PolicySheet>
         </TooltipTrigger>
         <TooltipContent>View My Policies</TooltipContent>
+      </Tooltip>
+
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            variant="outline"
+            className="order-2 md:order-3 px-2 h-[34px]"
+            onClick={() => window.open('/embed', '_blank')}
+          >
+            <CodeIcon />
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>Embed Widget</TooltipContent>
       </Tooltip>
     </header>
   );

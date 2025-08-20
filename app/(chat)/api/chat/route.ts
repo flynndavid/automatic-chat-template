@@ -100,7 +100,7 @@ export async function POST(request: Request) {
     const userType: UserType = 'regular';
 
     const messageCount = await getMessageCountByUserId({
-      id: user.id,
+      userId: user.id,
       differenceInHours: 24,
     });
 
@@ -117,6 +117,7 @@ export async function POST(request: Request) {
 
       await saveChat({
         id,
+        userId: user.id,
         title,
         visibility: selectedVisibilityType,
       });

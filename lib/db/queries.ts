@@ -38,20 +38,8 @@ const client = postgres(process.env.POSTGRES_URL!, {
 });
 const db = drizzle(client);
 
-// Helper function to get current user
-async function getCurrentUser() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-    error,
-  } = await supabase.auth.getUser();
-
-  if (error || !user) {
-    throw new ChatSDKError('unauthorized:chat', 'User not authenticated');
-  }
-
-  return user;
-}
+// Note: getCurrentUser helper removed - pass userId directly to avoid
+// multiple Supabase client instances in serverless environments
 
 export async function getUser(email: string) {
   try {
@@ -83,20 +71,20 @@ export async function createUser(email: string, password: string) {
 
 export async function saveChat({
   id,
+  userId,
   title,
   visibility,
 }: {
   id: string;
+  userId: string;
   title: string;
   visibility: VisibilityType;
 }) {
   try {
-    const user = await getCurrentUser();
-
     return await db.insert(chat).values({
       id,
       createdAt: new Date().toISOString(),
-      userId: user.id,
+      userId,
       title,
       visibility,
     });
@@ -125,16 +113,18 @@ export async function deleteChatById({ id }: { id: string }) {
 }
 
 export async function getChatsByUserId({
+  userId,
   limit,
   startingAfter,
   endingBefore,
 }: {
+  userId: string;
   limit: number;
   startingAfter: string | null;
   endingBefore: string | null;
 }) {
   try {
-    const user = await getCurrentUser();
+    console.log('[getChatsByUserId] Starting with userId:', userId);
     const extendedLimit = limit + 1;
 
     const query = (whereCondition?: SQL<any>) =>
@@ -143,8 +133,8 @@ export async function getChatsByUserId({
         .from(chat)
         .where(
           whereCondition
-            ? and(whereCondition, eq(chat.userId, user.id))
-            : eq(chat.userId, user.id),
+            ? and(whereCondition, eq(chat.userId, userId))
+            : eq(chat.userId, userId),
         )
         .orderBy(desc(chat.createdAt))
         .limit(extendedLimit);
@@ -192,6 +182,11 @@ export async function getChatsByUserId({
       hasMore,
     };
   } catch (error) {
+    console.error('[getChatsByUserId] Error:', {
+      error: error instanceof Error ? error.message : error,
+      stack: error instanceof Error ? error.stack : undefined,
+      userId,
+    });
     throw new ChatSDKError(
       'bad_request:database',
       'Failed to get chats by user id',
@@ -202,8 +197,14 @@ export async function getChatsByUserId({
 export async function getChatById({ id }: { id: string }) {
   try {
     const [selectedChat] = await db.select().from(chat).where(eq(chat.id, id));
-    return selectedChat;
+    return selectedChat; // This will be undefined if no chat found, which is expected
   } catch (error) {
+    // Log the actual error for debugging
+    console.error('Database error in getChatById:', {
+      chatId: id,
+      error: error instanceof Error ? error.message : error,
+      stack: error instanceof Error ? error.stack : undefined,
+    });
     throw new ChatSDKError('bad_request:database', 'Failed to get chat by id');
   }
 }
@@ -478,9 +479,9 @@ export async function updateChatVisiblityById({
 }
 
 export async function getMessageCountByUserId({
-  id,
+  userId,
   differenceInHours,
-}: { id: string; differenceInHours: number }) {
+}: { userId: string; differenceInHours: number }) {
   try {
     const twentyFourHoursAgo = new Date(
       Date.now() - differenceInHours * 60 * 60 * 1000,
@@ -492,7 +493,7 @@ export async function getMessageCountByUserId({
       .innerJoin(chat, eq(messageV2.chatId, chat.id))
       .where(
         and(
-          eq(chat.userId, id),
+          eq(chat.userId, userId),
           gte(messageV2.createdAt, twentyFourHoursAgo.toISOString()),
           eq(messageV2.role, 'user'),
         ),

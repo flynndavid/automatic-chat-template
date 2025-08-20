@@ -37,7 +37,7 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  // Allow unauthenticated access to auth pages
+  // Allow unauthenticated access to auth pages and embed routes
   if (
     [
       '/login',
@@ -45,7 +45,10 @@ export async function updateSession(request: NextRequest) {
       '/auth/callback',
       '/auth/auth-code-error',
       '/auth/confirm',
-    ].includes(request.nextUrl.pathname)
+      '/embed',
+      '/embed/chat',
+    ].includes(request.nextUrl.pathname) ||
+    request.nextUrl.pathname.startsWith('/api/auth/guest')
   ) {
     return supabaseResponse;
   }
@@ -54,7 +57,8 @@ export async function updateSession(request: NextRequest) {
   if (
     !user &&
     !request.nextUrl.pathname.startsWith('/login') &&
-    !request.nextUrl.pathname.startsWith('/register')
+    !request.nextUrl.pathname.startsWith('/register') &&
+    !request.nextUrl.pathname.startsWith('/embed')
   ) {
     const url = request.nextUrl.clone();
     url.pathname = '/login';
