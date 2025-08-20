@@ -13,13 +13,9 @@ interface SuggestedActionsProps {
   selectedVisibilityType: VisibilityType;
 }
 
-function PureSuggestedActions({
-  chatId,
-  sendMessage,
-  selectedVisibilityType,
-}: SuggestedActionsProps) {
-  // Pool of 10 HomeFax-specific suggestions for policyholders
-  const allSuggestions = [
+// Pool of 10 HomeFax-specific suggestions for policyholders
+const ALL_SUGGESTIONS: Array<{ title: string; label: string; action: string }> =
+  [
     {
       title: 'Does my policy cover',
       label: 'water damage from burst pipes?',
@@ -76,6 +72,11 @@ function PureSuggestedActions({
     },
   ];
 
+function PureSuggestedActions({
+  chatId,
+  sendMessage,
+  selectedVisibilityType,
+}: SuggestedActionsProps) {
   // Deterministically select 4 suggestions based on chatId to avoid hydration mismatch
   const suggestedActions = useMemo(() => {
     // Create a simple hash from chatId for consistent pseudo-random behavior
@@ -85,7 +86,7 @@ function PureSuggestedActions({
     }, 0);
 
     // Use the hash to create a deterministic shuffle
-    const shuffled = [...allSuggestions];
+    const shuffled = [...ALL_SUGGESTIONS];
     for (let i = shuffled.length - 1; i > 0; i--) {
       // Generate deterministic "random" index based on hash and position
       const pseudoRandom = Math.abs((hash + i) * 9301 + 49297) % 233280;

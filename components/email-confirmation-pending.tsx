@@ -68,10 +68,10 @@ export function EmailConfirmationPending({
       <div className="w-full max-w-md overflow-hidden rounded-2xl flex flex-col gap-12">
         <div className="flex flex-col items-center justify-center gap-6 px-4 text-center sm:px-16">
           {/* Email Icon */}
-          <div className="relative w-20 h-20 mt-4">
-            <div className="w-20 h-20 rounded-full bg-blue-100 dark:bg-blue-900/20 flex items-center justify-center">
+          <div className="relative size-20 mt-4">
+            <div className="size-20 rounded-full bg-blue-100 dark:bg-blue-900/20 flex items-center justify-center">
               <svg
-                className="w-10 h-10 text-blue-600 dark:text-blue-400"
+                className="size-10 text-blue-600 dark:text-blue-400"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -85,9 +85,9 @@ export function EmailConfirmationPending({
               </svg>
             </div>
             <div className="absolute -top-1 -right-1">
-              <span className="flex h-6 w-6">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-6 w-6 bg-blue-500" />
+              <span className="flex size-6">
+                <span className="animate-ping absolute inline-flex size-full rounded-full bg-blue-400 opacity-75" />
+                <span className="relative inline-flex rounded-full size-6 bg-blue-500" />
               </span>
             </div>
           </div>
@@ -121,7 +121,7 @@ export function EmailConfirmationPending({
             >
               {isResending ? (
                 <>
-                  <div className="w-4 h-4 border-2 border-gray-600 border-t-transparent rounded-full animate-spin mr-2" />
+                  <div className="size-4 border-2 border-gray-600 border-t-transparent rounded-full animate-spin mr-2" />
                   Sending...
                 </>
               ) : resendCooldown ? (

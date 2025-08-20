@@ -103,8 +103,8 @@ export default function EmbedPage() {
           <h2 className="text-lg font-semibold mb-4">Quick Setup</h2>
           <div className="space-y-4">
             <p className="text-sm text-muted-foreground">
-              Add this code snippet to your website's HTML, right before the
-              closing {`</body>`} tag:
+              Add this code snippet to your website&apos;s HTML, right before
+              the closing {`</body>`} tag:
             </p>
 
             <div className="bg-muted rounded-lg p-4 relative font-mono text-sm">
@@ -123,8 +123,9 @@ export default function EmbedPage() {
 
             <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-900 rounded-lg p-4">
               <p className="text-sm text-blue-900 dark:text-blue-100">
-                <strong>Pro tip:</strong> Replace "your-agency-id" with your
-                actual agency ID to link conversations to your account.
+                <strong>Pro tip:</strong> Replace &quot;your-agency-id&quot;
+                with your actual agency ID to link conversations to your
+                account.
               </p>
             </div>
           </div>
@@ -141,10 +142,14 @@ export default function EmbedPage() {
               </p>
               <div className="grid grid-cols-2 gap-3">
                 <div className="bg-muted rounded-lg p-3">
-                  <code className="text-xs">data-position="bottom-right"</code>
+                  <code className="text-xs">
+                    data-position=&quot;bottom-right&quot;
+                  </code>
                 </div>
                 <div className="bg-muted rounded-lg p-3">
-                  <code className="text-xs">data-position="bottom-left"</code>
+                  <code className="text-xs">
+                    data-position=&quot;bottom-left&quot;
+                  </code>
                 </div>
               </div>
             </div>

@@ -5,9 +5,9 @@ export default function EmailConfirmed() {
     <div className="flex h-screen w-screen items-center justify-center bg-background">
       <div className="w-full max-w-md overflow-hidden rounded-2xl flex flex-col gap-12">
         <div className="flex flex-col items-center justify-center gap-2 px-4 text-center sm:px-16">
-          <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-4">
+          <div className="size-12 bg-green-100 rounded-full flex items-center justify-center mb-4">
             <svg
-              className="w-6 h-6 text-green-600"
+              className="size-6 text-green-600"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"

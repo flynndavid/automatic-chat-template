@@ -10,7 +10,7 @@ import { DataStreamHandler } from '@/components/data-stream-handler';
 export default async function EmbedChatPage({
   searchParams,
 }: {
-  searchParams: { agency?: string };
+  searchParams: Promise<{ agency?: string }>;
 }) {
   const supabase = await createClient();
 
@@ -19,9 +19,11 @@ export default async function EmbedChatPage({
     data: { user },
   } = await supabase.auth.getUser();
 
+  const { agency } = await searchParams;
+
   // If no user, create guest session
   if (!user) {
-    const redirectUrl = `/embed/chat${searchParams.agency ? `?agency=${searchParams.agency}` : ''}`;
+    const redirectUrl = `/embed/chat${agency ? `?agency=${agency}` : ''}`;
     redirect(`/api/auth/guest?redirectUrl=${encodeURIComponent(redirectUrl)}`);
   }
 
