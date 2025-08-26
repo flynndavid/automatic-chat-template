@@ -141,7 +141,7 @@ export function EmbedChat({
         isArtifactVisible={false}
       />
 
-      <form className="flex mx-auto px-4 bg-background pb-4 gap-2 w-full">
+      <form className="flex mx-auto px-4 bg-background pb-2 gap-2 w-full">
         {!isReadonly && (
           <MultimodalInput
             chatId={id}
