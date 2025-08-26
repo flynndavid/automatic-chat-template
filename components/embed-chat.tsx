@@ -19,6 +19,7 @@ import { useAutoResume } from '@/hooks/use-auto-resume';
 import { ChatSDKError } from '@/lib/errors';
 import type { Attachment, ChatMessage } from '@/lib/types';
 import { useDataStream } from './data-stream-provider';
+import { ChatDisclaimer } from './chat-disclaimer';
 
 export function EmbedChat({
   id,
@@ -157,6 +158,8 @@ export function EmbedChat({
           />
         )}
       </form>
+
+      {!isReadonly && <ChatDisclaimer />}
     </div>
   );
 }

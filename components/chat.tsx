@@ -22,6 +22,7 @@ import { useAutoResume } from '@/hooks/use-auto-resume';
 import { ChatSDKError } from '@/lib/errors';
 import type { Attachment, ChatMessage } from '@/lib/types';
 import { useDataStream } from './data-stream-provider';
+import { ChatDisclaimer } from './chat-disclaimer';
 
 export function Chat({
   id,
@@ -129,9 +130,7 @@ export function Chat({
   return (
     <>
       <div className="flex flex-col min-w-0 h-dvh bg-background">
-        <ChatHeader
-          user={user}
-        />
+        <ChatHeader user={user} />
 
         <Messages
           chatId={id}
@@ -161,6 +160,8 @@ export function Chat({
             />
           )}
         </form>
+
+        {!isReadonly && <ChatDisclaimer />}
       </div>
 
       <Artifact

@@ -18,6 +18,7 @@ import { VersionFooter } from './version-footer';
 import { ArtifactActions } from './artifact-actions';
 import { ArtifactCloseButton } from './artifact-close-button';
 import { ArtifactMessages } from './artifact-messages';
+import { ChatDisclaimer } from './chat-disclaimer';
 import { useSidebar } from './ui/sidebar';
 import { useArtifact } from '@/hooks/use-artifact';
 import { imageArtifact } from '@/artifacts/image/client';
@@ -338,6 +339,8 @@ function PureArtifact({
                     selectedVisibilityType={selectedVisibilityType}
                   />
                 </form>
+
+                {!isReadonly && <ChatDisclaimer />}
               </div>
             </motion.div>
           )}
