@@ -1,0 +1,14 @@
+# GitHub Template Repository Configuration
+# This file enables template repository features
+
+name: "Automatic Chat Template"
+description: "Production-ready AI chat application template with n8n integration"
+topics:
+  - nextjs
+  - ai
+  - chat
+  - template
+  - supabase
+  - typescript
+  - n8n
+  - vercel
