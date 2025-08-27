@@ -29,7 +29,7 @@ export async function GET(request: Request) {
     // Create guest profile
     await supabase.from('profiles').upsert({
       id: data.user.id,
-      email: `guest_${data.user.id}@homefax.ai`,
+      email: `guest_${data.user.id}@example.com`,
       user_type: 'guest',
     });
   }

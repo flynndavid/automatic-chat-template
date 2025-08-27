@@ -12,7 +12,7 @@ export function AuthSuccessHandler() {
     if (confirmed === 'true') {
       toast({
         type: 'success',
-        description: 'Email confirmed successfully! Welcome to HomeFax!',
+        description: 'Email confirmed successfully! Welcome!',
       });
 
       // Clean up the URL by removing the confirmation parameter

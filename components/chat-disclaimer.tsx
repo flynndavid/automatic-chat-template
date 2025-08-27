@@ -9,7 +9,7 @@ export function ChatDisclaimer() {
           type="button"
           className="text-xs text-muted-foreground text-center max-w-md hover:text-foreground transition-colors cursor-pointer underline decoration-dotted underline-offset-2"
         >
-          HomeFax can make mistakes. Verify information with your agent.
+          AI can make mistakes. Verify important information independently.
         </button>
       </DisclaimerDialog>
     </div>

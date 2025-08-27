@@ -127,7 +127,7 @@ export function EmbedChat({
     <div className="flex flex-col h-full bg-background">
       {/* Simple header for embed */}
       <header className="flex items-center px-4 py-3 border-b">
-        <h1 className="text-sm font-medium">HomeFax AI Assistant</h1>
+        <h1 className="text-sm font-medium">AI Assistant</h1>
       </header>
 
       <Messages

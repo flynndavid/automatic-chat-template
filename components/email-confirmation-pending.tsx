@@ -108,7 +108,7 @@ export function EmailConfirmationPending({
           {/* Instructions */}
           <p className="text-sm text-gray-600 dark:text-zinc-400">
             Please click the link in the email to confirm your account and get
-            started with HomeFax.
+            started with our AI assistant.
           </p>
 
           {/* Actions */}
@@ -150,10 +150,10 @@ export function EmailConfirmationPending({
             <p className="text-xs text-gray-500 dark:text-zinc-500">
               Having trouble? Contact{' '}
               <a
-                href="mailto:support@homefax.ai"
+                href="mailto:support@example.com"
                 className="text-blue-600 dark:text-blue-400 hover:underline"
               >
-                support@homefax.ai
+                support@example.com
               </a>
             </p>
           </div>

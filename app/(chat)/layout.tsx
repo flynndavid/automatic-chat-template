@@ -10,9 +10,9 @@ import { DataStreamProvider } from '@/components/data-stream-provider';
 export const experimental_ppr = true;
 
 export const metadata: Metadata = {
-  title: 'Chat - HomeFax.ai',
+  title: 'Chat - AI Assistant',
   description:
-    'Chat with your AI insurance policy assistant. Get instant answers about your coverage in plain English.',
+    'Chat with your AI assistant. Get instant help and answers to your questions.',
 };
 
 export default async function Layout({

@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Authentication - HomeFax.ai',
+  title: 'Authentication - AI Assistant',
   description:
-    'Sign in or create an account to access your HomeFax.ai insurance policy assistant.',
+    'Sign in or create an account to access your AI assistant.',
 };
 
 export default function AuthLayout({

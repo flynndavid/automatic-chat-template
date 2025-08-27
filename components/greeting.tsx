@@ -13,7 +13,7 @@ export const Greeting = () => {
         transition={{ delay: 0.5 }}
         className="text-2xl font-semibold"
       >
-        Welcome to HomeFax.ai!
+        Welcome to Chat Assistant!
       </motion.div>
       <motion.div
         initial={{ opacity: 0, y: 10 }}
@@ -22,7 +22,7 @@ export const Greeting = () => {
         transition={{ delay: 0.6 }}
         className="text-2xl text-zinc-500"
       >
-        Ask me anything about your insurance policy or home history.
+        I&apos;m here to help with your questions and tasks.
       </motion.div>
     </div>
   );

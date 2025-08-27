@@ -38,7 +38,7 @@ export async function handleN8nAgent(
 
       // Request metadata
       timestamp: new Date().toISOString(),
-      source: 'homefax-chat',
+      source: 'ai-chat',
 
       // Future extensibility
       context: {
@@ -91,7 +91,7 @@ export async function handleN8nAgent(
     }
 
     if (!fullResponse) {
-      throw new Error('No response from HomeFax agent');
+      throw new Error('No response from AI agent');
     }
 
     // Save the assistant message
@@ -150,7 +150,7 @@ export async function handleN8nAgent(
   } catch (error) {
     console.error('n8n integration error:', error);
     return new Response(
-      JSON.stringify({ error: 'HomeFax agent temporarily unavailable' }),
+      JSON.stringify({ error: 'AI agent temporarily unavailable' }),
       { status: 500, headers: { 'Content-Type': 'application/json' } },
     );
   }

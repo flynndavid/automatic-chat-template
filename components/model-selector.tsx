@@ -68,17 +68,12 @@ export function ModelSelector({
       <DropdownMenuContent align="start" className="min-w-[300px]">
         {availableChatModels.map((chatModel) => {
           const { id } = chatModel;
-          const isHomeFaxAgent = id === 'n8n-agent';
-          const isDisabled = !isHomeFaxAgent;
 
           return (
             <DropdownMenuItem
               data-testid={`model-selector-item-${id}`}
               key={id}
-              disabled={isDisabled}
               onSelect={() => {
-                if (isDisabled) return;
-
                 setOpen(false);
 
                 startTransition(() => {
@@ -91,20 +86,11 @@ export function ModelSelector({
             >
               <button
                 type="button"
-                disabled={isDisabled}
-                className={cn(
-                  'gap-4 group/item flex flex-row justify-between items-center w-full',
-                  isDisabled && 'opacity-50 cursor-not-allowed',
-                )}
+                className="gap-4 group/item flex flex-row justify-between items-center w-full"
               >
                 <div className="flex flex-col gap-1 items-start">
                   <div className="flex items-center gap-2">
                     {chatModel.name}
-                    {isDisabled && (
-                      <span className="text-xs bg-muted text-muted-foreground px-2 py-0.5 rounded-md">
-                        Coming Soon
-                      </span>
-                    )}
                   </div>
                   <div className="text-xs text-muted-foreground">
                     {chatModel.description}

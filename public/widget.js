@@ -1,5 +1,5 @@
 (function() {
-  // HomeFax Widget Loader
+  // AI Chat Widget Loader
   const scriptTag = document.currentScript;
   const widgetConfig = {
     agencyId: scriptTag.getAttribute('data-agency-id') || '',

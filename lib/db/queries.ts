@@ -22,7 +22,7 @@ import {
   type Suggestion,
   suggestion,
   messageV2,
-  voteV2 as vote,
+  vote,
   type DBMessage,
   type Chat,
   stream,

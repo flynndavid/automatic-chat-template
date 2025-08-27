@@ -13,62 +13,58 @@ interface SuggestedActionsProps {
   selectedVisibilityType: VisibilityType;
 }
 
-// Pool of 10 HomeFax-specific suggestions for policyholders
+// Pool of 10 generic suggestions for general assistance
 const ALL_SUGGESTIONS: Array<{ title: string; label: string; action: string }> =
   [
     {
-      title: 'Does my policy cover',
-      label: 'water damage from burst pipes?',
-      action: 'Does my policy cover water damage from burst pipes?',
+      title: 'Help me write',
+      label: 'a professional email',
+      action: 'Help me write a professional email',
     },
     {
-      title: 'How do I file a claim',
-      label: 'for storm damage?',
-      action: 'How do I file a claim for storm damage?',
+      title: 'Create a document',
+      label: 'for my project',
+      action: 'Create a document to help organize my project',
     },
     {
-      title: 'What home improvements',
-      label: 'affect my coverage?',
-      action: 'What home improvements affect my coverage?',
+      title: 'Explain a concept',
+      label: 'in simple terms',
+      action: 'Explain a complex concept in simple terms',
     },
     {
-      title: 'Explain my deductible',
-      label: 'options and amounts',
-      action: 'Explain my deductible options and how they work',
+      title: 'Generate ideas',
+      label: 'for my presentation',
+      action: 'Generate creative ideas for my presentation',
     },
     {
-      title: 'What documentation',
-      label: 'do I need for claims?',
-      action: 'What documentation do I need when filing a claim?',
+      title: 'What should I know',
+      label: 'about this topic?',
+      action: 'What should I know about this topic?',
     },
     {
-      title: 'Does my policy cover',
-      label: 'liability for injuries?',
-      action:
-        'Does my policy cover liability if someone gets injured on my property?',
+      title: 'Help me organize',
+      label: 'my thoughts and plans',
+      action: 'Help me organize my thoughts and create a plan',
     },
     {
-      title: "How does my home's age",
-      label: 'affect my premium?',
-      action:
-        "How does my home's age and condition affect my insurance premium?",
+      title: 'Summarize information',
+      label: 'from multiple sources',
+      action: 'Summarize key information from multiple sources',
     },
     {
-      title: "What's not covered",
-      label: "by my homeowner's insurance?",
-      action: "What's not covered by my homeowner's insurance policy?",
+      title: 'Create a checklist',
+      label: 'for my tasks',
+      action: 'Create a checklist to help me stay organized',
     },
     {
-      title: 'How do I update coverage',
-      label: 'after renovations?',
-      action:
-        'How do I update my coverage after home renovations or improvements?',
+      title: 'Research and compare',
+      label: 'different options',
+      action: 'Help me research and compare different options',
     },
     {
-      title: 'How should I prepare',
-      label: 'for hurricane season?',
-      action:
-        'What should I do to prepare my home and insurance for hurricane season?',
+      title: 'Check the weather',
+      label: 'for my location',
+      action: 'What is the weather like today?',
     },
   ];
 

@@ -1,6 +1,7 @@
 {
-  "name": "ai-chatbot",
-  "version": "3.1.0",
+  "name": "automatic-chat-template",
+  "version": "1.0.0",
+  "description": "Production-ready AI chat application template with n8n integration",
   "private": true,
   "scripts": {
     "dev": "next dev --turbo",

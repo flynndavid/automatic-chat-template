@@ -16,7 +16,7 @@ export default function EmbedPage() {
 
   const embedCode = `<script>
   (function(){const e=document.createElement("script");
-  e.src="https://app.homefax.ai/widget.js";
+  e.src="https://example.com/widget.js";
   e.setAttribute("data-agency-id","${agencyId}");
   e.setAttribute("data-position","bottom-right");
   document.body.appendChild(e)})();
@@ -69,15 +69,15 @@ export default function EmbedPage() {
             <ArrowLeftIcon size={16} />
             Back
           </Button>
-          <h1 className="text-xl font-semibold">Embed HomeFax Widget</h1>
+          <h1 className="text-xl font-semibold">Embed Chat Widget</h1>
         </div>
       </header>
 
       <div className="max-w-4xl mx-auto p-6 space-y-6">
         <div>
           <p className="text-muted-foreground">
-            Add HomeFax AI chat to your website. Your customers can get instant
-            answers about their insurance policies 24/7.
+            Add AI chat to your website. Your customers can get instant
+            assistance and answers 24/7.
           </p>
         </div>
 
@@ -92,7 +92,7 @@ export default function EmbedPage() {
                   : 'Loading widget demo...'}
               </p>
               <p className="text-xs text-muted-foreground">
-                Click it to see how your customers will interact with HomeFax
+                Click it to see how your customers will interact with the AI assistant
               </p>
             </div>
           </div>
@@ -124,7 +124,7 @@ export default function EmbedPage() {
             <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-900 rounded-lg p-4">
               <p className="text-sm text-blue-900 dark:text-blue-100">
                 <strong>Pro tip:</strong> Replace &quot;your-agency-id&quot;
-                with your actual agency ID to link conversations to your
+                with your actual organization ID to link conversations to your
                 account.
               </p>
             </div>
@@ -155,9 +155,9 @@ export default function EmbedPage() {
             </div>
 
             <div className="pt-2">
-              <h3 className="text-sm font-medium mb-2">Agency ID</h3>
+              <h3 className="text-sm font-medium mb-2">Organization ID</h3>
               <p className="text-sm text-muted-foreground">
-                Your unique agency identifier ensures all conversations are
+                Your unique organization identifier ensures all conversations are
                 properly tracked and associated with your account.
               </p>
             </div>
@@ -205,7 +205,7 @@ export default function EmbedPage() {
                   <code className="text-xs">
                     {`// Server-side code only
 const crypto = require('crypto');
-const secret = process.env.HOMEFAX_SECRET;
+const secret = process.env.CHAT_SECRET;
 const userId = currentUser.id;
 
 const hash = crypto
@@ -231,7 +231,7 @@ const hash = crypto
           <div className="flex gap-3">
             <Button
               variant="outline"
-              onClick={() => window.open('mailto:support@homefax.ai')}
+              onClick={() => window.open('mailto:support@example.com')}
             >
               Contact Support
             </Button>

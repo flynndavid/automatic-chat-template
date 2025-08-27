@@ -6,10 +6,10 @@ import { ThemeProvider } from '@/components/theme-provider';
 import './globals.css';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://homefax.ai'),
-  title: 'HomeFax.ai - AI Insurance Policy Assistant',
+  metadataBase: new URL('https://example.com'),
+  title: 'AI Chat Assistant',
   description:
-    'AI-powered insurance policy interpretation and home history platform. Get instant answers about your insurance coverage in plain English.',
+    'Intelligent AI-powered chat assistant. Get help with your questions and tasks through natural conversation.',
 };
 
 export const viewport = {

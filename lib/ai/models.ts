@@ -19,8 +19,8 @@ export const chatModels: Array<ChatModel> = [
   },
   {
     id: 'n8n-agent',
-    name: 'HomeFax Agent',
+    name: 'AI Agent',
     description:
-      'Specialized insurance policy AI with database access and routing',
+      'Specialized AI assistant with database access and workflow routing',
   },
 ];

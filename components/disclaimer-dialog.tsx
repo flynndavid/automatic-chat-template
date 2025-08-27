@@ -22,9 +22,9 @@ export function DisclaimerDialog({ children }: DisclaimerDialogProps) {
         <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
         <AlertDialogContent className="max-w-2xl max-h-[80vh] p-0 flex flex-col">
           <div className="p-6 pb-0">
-            <AlertDialogHeader className="flex-shrink-0">
+            <AlertDialogHeader className="shrink-0">
               <AlertDialogTitle>
-                Important Insurance Information Disclaimer
+                AI Assistant Disclaimer
               </AlertDialogTitle>
             </AlertDialogHeader>
           </div>
@@ -32,31 +32,30 @@ export function DisclaimerDialog({ children }: DisclaimerDialogProps) {
             <div className="text-left space-y-4 overflow-y-auto flex-1 px-6 pb-4">
               <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-4">
                 <p className="text-amber-800 font-medium text-sm">
-                  ⚠️ This information is for guidance only and must be confirmed
-                  by your licensed insurance agent. Policy interpretations can
-                  vary, and only your agent can provide definitive coverage
-                  determinations and handle claims or policy changes.
+                  ⚠️ This AI assistant provides general information and guidance.
+                  For professional advice, legal matters, or critical decisions,
+                  please consult with qualified professionals or subject matter experts.
                 </p>
               </div>
 
               <div>
                 <h4 className="font-semibold text-foreground mb-2">
-                  Professional Consultation Required
+                  Professional Consultation Recommended
                 </h4>
                 <ul className="list-disc list-inside space-y-1 text-sm">
                   <li>
-                    All policy interpretations must be verified with your
-                    licensed insurance agent
+                    For legal, medical, financial, or professional advice,
+                    consult qualified experts in the relevant field
                   </li>
                   <li>
-                    Only licensed professionals can provide definitive coverage
-                    determinations
+                    Critical business or personal decisions should be reviewed
+                    with appropriate professionals
                   </li>
                   <li>
-                    Claims processing and policy changes require agent
-                    assistance
+                    Technical implementations should be validated by subject
+                    matter experts
                   </li>
-                  <li>Complex coverage scenarios need professional review</li>
+                  <li>Complex scenarios may require specialized consultation</li>
                 </ul>
               </div>
 
@@ -66,41 +65,39 @@ export function DisclaimerDialog({ children }: DisclaimerDialogProps) {
                 </h4>
                 <ul className="list-disc list-inside space-y-1 text-sm">
                   <li>
-                    HomeFax AI provides guidance based on policy document
-                    analysis
+                    AI responses are based on training data and may not reflect
+                    the most recent information
                   </li>
                   <li>
-                    AI responses may not reflect recent policy changes or
-                    amendments
+                    Responses may contain errors and should be verified
+                    independently
                   </li>
                   <li>
-                    Policy language interpretation can vary and requires
-                    professional validation
+                    Complex interpretations may vary and require human validation
                   </li>
                   <li>
-                    This service cannot replace licensed insurance consultation
+                    This service cannot replace professional consultation in
+                    specialized fields
                   </li>
                 </ul>
               </div>
 
               <div>
                 <h4 className="font-semibold text-foreground mb-2">
-                  Regulatory Compliance
+                  Data and Privacy
                 </h4>
                 <ul className="list-disc list-inside space-y-1 text-sm">
                   <li>
-                    HomeFax adheres to all applicable insurance regulatory
-                    requirements
+                    Your conversations are processed to provide AI assistance
                   </li>
                   <li>
-                    Licensed agents provide human oversight for all policy
-                    guidance
+                    Avoid sharing sensitive personal or confidential information
                   </li>
                   <li>
-                    Official policy documents remain the authoritative source
+                    Review our privacy policy for details on data handling
                   </li>
                   <li>
-                    Professional insurance advice supersedes AI interpretations
+                    Consider data sensitivity when using AI assistance
                   </li>
                 </ul>
               </div>
@@ -111,32 +108,28 @@ export function DisclaimerDialog({ children }: DisclaimerDialogProps) {
                 </h4>
                 <ul className="list-disc list-inside space-y-1 text-sm">
                   <li>
-                    Use HomeFax AI for initial policy understanding and
-                    education
+                    Use the AI assistant for general information and guidance
                   </li>
                   <li>
-                    Always confirm important coverage details with your agent
+                    Always verify important information from authoritative sources
                   </li>
                   <li>
-                    Contact your insurance professional for claims or policy
-                    changes
+                    Consult professionals for specialized advice and critical decisions
                   </li>
                   <li>
-                    Maintain original policy documents as the definitive
-                    reference
+                    Use your best judgment when acting on AI-generated suggestions
                   </li>
                 </ul>
               </div>
 
               <p className="text-xs text-muted-foreground border-t pt-3 mt-4">
-                By using HomeFax AI, you acknowledge that this service provides
-                educational guidance only and that all insurance decisions
-                should be made in consultation with your licensed insurance
-                agent or company representative.
+                By using this AI assistant, you acknowledge that this service provides
+                general guidance only and that important decisions should be made
+                in consultation with qualified professionals or subject matter experts.
               </p>
             </div>
           </AlertDialogDescription>
-          <AlertDialogFooter className="flex-shrink-0 bg-background border-t p-6 pt-4">
+          <AlertDialogFooter className="shrink-0 bg-background border-t p-6 pt-4">
             <AlertDialogAction className="w-full">
               I Understand
             </AlertDialogAction>
