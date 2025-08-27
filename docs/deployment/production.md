@@ -568,4 +568,4 @@ After successful deployment:
 4. **Plan for scaling** based on usage patterns
 5. **Regular security reviews** and updates
 
-For customizing your deployed application, see [CUSTOMIZATION.md](./CUSTOMIZATION.md).
+For customizing your deployed application, see [Customization Guide](../guides/customization.md).

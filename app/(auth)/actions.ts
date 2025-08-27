@@ -118,16 +118,18 @@ export const register = async (
       const { error: profileError } = await supabase.from('profiles').insert({
         id: data.user.id,
         email: validatedData.email,
-        user_type: 'regular',
       });
 
       if (profileError) {
         console.error('Failed to create profile:', profileError);
         // Don't fail registration if profile creation fails, user can still sign in
+      } else {
+        console.log('Profile created successfully for user:', data.user.id);
       }
 
       // If user is immediately confirmed and we have a session, redirect
       if (data.session) {
+        console.log('User has session, redirecting to home');
         redirect('/');
       }
     }
@@ -138,6 +140,12 @@ export const register = async (
       return { status: 'invalid_data' };
     }
 
+    // Re-throw redirect errors - they should not be caught
+    if (error && typeof error === 'object' && 'digest' in error) {
+      throw error;
+    }
+
+    console.error('Registration error:', error);
     return {
       status: 'failed',
       message: 'An unexpected error occurred',

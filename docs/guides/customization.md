@@ -1145,4 +1145,4 @@ async function handleCustomAction() {
 - **Supabase**: [supabase.com/docs](https://supabase.com/docs)
 - **Next.js**: [nextjs.org/docs](https://nextjs.org/docs)
 
-For deployment of your customized template, see [DEPLOYMENT.md](./DEPLOYMENT.md).
+For deployment of your customized template, see [Production Deployment Guide](../deployment/production.md).

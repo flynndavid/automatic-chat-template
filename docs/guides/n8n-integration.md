@@ -447,4 +447,4 @@ curl -X POST "https://your-n8n-instance.com/webhook/your-webhook-id/chat" \
 4. **Monitor and optimize** workflow performance
 5. **Scale your deployment** as usage grows
 
-For more advanced customization, see [CUSTOMIZATION.md](./CUSTOMIZATION.md).
+For more advanced customization, see [Customization Guide](./customization.md).

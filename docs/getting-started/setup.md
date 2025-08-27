@@ -163,7 +163,7 @@ N8N_API_KEY=your_n8n_api_key
 N8N_BASE_URL=https://your-n8n-instance.com
 ```
 
-See [N8N_INTEGRATION.md](./N8N_INTEGRATION.md) for detailed setup.
+See [N8N Integration Guide](../guides/n8n-integration.md) for detailed setup.
 
 ## Development
 
@@ -290,15 +290,15 @@ OTEL_SERVICE_NAME="your-app-name"
 
 Once your setup is complete:
 
-1. **Customize the UI**: See [CUSTOMIZATION.md](./CUSTOMIZATION.md)
-2. **Deploy to production**: See [DEPLOYMENT.md](./DEPLOYMENT.md)  
-3. **Set up n8n workflows**: See [N8N_INTEGRATION.md](./N8N_INTEGRATION.md)
+1. **Customize the UI**: See [Customization Guide](../guides/customization.md)
+2. **Deploy to production**: See [Production Deployment Guide](../deployment/production.md)  
+3. **Set up n8n workflows**: See [N8N Integration Guide](../guides/n8n-integration.md)
 4. **Add custom AI tools**: Modify `lib/ai/tools/`
 
 ## Getting Help
 
 - Check the [troubleshooting section](#common-issues) above
-- Review the [main README](./README.md)
+- Review the [main README](../../README.md)
 - Open an issue in the project repository
 - Check the [Vercel AI SDK docs](https://sdk.vercel.ai/docs)
 - Review [Supabase documentation](https://supabase.com/docs)
