@@ -41,3 +41,9 @@ yarn-error.log*
 /playwright-report/
 /blob-report/
 /playwright/*
+
+# Cursor rules with potential secrets
+.cursor/rules/*-production.*
+.cursor/rules/*-prod.*
+.cursor/rules/*-secret.*
+.cursor/rules/*-private.*
