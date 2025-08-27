@@ -130,7 +130,7 @@ export function Chat({
   return (
     <>
       <div className="flex flex-col min-w-0 h-dvh bg-background">
-        <ChatHeader user={user} />
+        <ChatHeader user={user} selectedModelId={initialChatModel} />
 
         <Messages
           chatId={id}

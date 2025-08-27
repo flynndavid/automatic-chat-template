@@ -1,4 +1,4 @@
-export const DEFAULT_CHAT_MODEL: string = 'n8n-agent';
+export const DEFAULT_CHAT_MODEL: string = 'chat-model';
 
 export interface ChatModel {
   id: string;

@@ -4,21 +4,30 @@ import { useRouter } from 'next/navigation';
 
 import { SidebarToggle } from '@/components/sidebar-toggle';
 import { Button } from '@/components/ui/button';
-import { PlusIcon, FileTextIcon, CodeIcon } from './icons';
+import { PlusIcon, CodeIcon } from './icons';
 import { memo } from 'react';
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
+import { ModelSelector } from '@/components/model-selector';
 import type { User } from '@supabase/supabase-js';
 
 function PureChatHeader({
   user,
+  selectedModelId,
 }: {
   user: User;
+  selectedModelId: string;
 }) {
   const router = useRouter();
 
   return (
     <header className="flex sticky top-0 bg-background py-1.5 items-center px-2 md:px-2 gap-2">
       <SidebarToggle />
+
+      <ModelSelector
+        user={user}
+        selectedModelId={selectedModelId}
+        className="order-2 md:order-1"
+      />
 
       <Tooltip>
         <TooltipTrigger asChild>
@@ -37,12 +46,11 @@ function PureChatHeader({
         <TooltipContent>New Chat</TooltipContent>
       </Tooltip>
 
-
       <Tooltip>
         <TooltipTrigger asChild>
           <Button
             variant="outline"
-            className="order-1 md:order-2 px-2 h-[34px]"
+            className="order-3 md:order-2 px-2 h-[34px]"
             onClick={() => window.open('/embed', '_blank')}
           >
             <CodeIcon />

@@ -1,0 +1,34 @@
+---
+alwaysApply: true
+---
+
+# Project Documentation Summary
+
+This project is an AI chat application template with a focus on local development, customization, and production readiness.
+
+## 🚀 Getting Started
+
+- **Quick Start**: For the fastest setup (5-10 mins), see the [Quick Start Guide](mdc:docs/getting-started/quick-start.md).
+- **Detailed Setup**: For a comprehensive setup including hosted environments, refer to the [Setup Guide](mdc:docs/getting-started/setup.md).
+
+## 🛠️ Development
+
+- **Local Development**: The recommended workflow uses a local Supabase stack with Docker for speed and isolation. Full details are in the [Local Development Guide](mdc:docs/development/local-development.md).
+- **Configuration**: All environment variables for local and production setups are detailed in the [Configuration Reference](mdc:docs/development/configuration.md).
+- **Troubleshooting**: For common issues and solutions, see the [Troubleshooting Guide](mdc:docs/development/troubleshooting.md).
+
+## 🚀 Deployment
+
+- **Vercel (Recommended)**: The template is optimized for Vercel.
+- **Other Options**: Docker, Railway, and other platforms are also supported.
+- **Full Guide**: For checklists, security, and performance, see the [Production Deployment Guide](mdc:docs/deployment/production.md).
+
+## 📚 Guides & Customization
+
+The template is highly extensible:
+
+- **UI & Branding**: Customize themes, colors, and components. See the [Customization Guide](mdc:docs/guides/customization.md).
+- **API Integration**: Add new AI providers or create custom tools for the AI to use. Refer to the [API Integration Guide](mdc:docs/guides/api-integration.md).
+- **Workflow Automation**: Connect to n8n for complex business logic. See the [n8n Integration Guide](mdc:docs/guides/n8n-integration.md).
+
+For a complete overview and file index, see the main [documentation README](mdc:docs/README.md) and the [index file](mdc:docs/index.md).

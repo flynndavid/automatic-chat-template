@@ -11,11 +11,20 @@ import { createUIMessageStream, JsonToSseTransformStream } from 'ai';
 import { getStreamContext } from '../../route';
 import { differenceInSeconds } from 'date-fns';
 
+// UUID validation regex
+const UUID_REGEX =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
 export async function GET(
   _: Request,
   { params }: { params: Promise<{ id: string }> },
 ) {
   const { id: chatId } = await params;
+
+  // Validate that the chat ID is a proper UUID
+  if (!UUID_REGEX.test(chatId)) {
+    return new ChatSDKError('bad_request:chat').toResponse();
+  }
 
   const streamContext = getStreamContext();
   const resumeRequestedAt = new Date();

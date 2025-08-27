@@ -64,6 +64,10 @@ export function getStreamContext() {
   return globalStreamContext;
 }
 
+// UUID validation regex
+const UUID_REGEX =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
 export async function POST(request: Request) {
   let requestBody: PostRequestBody;
 
@@ -86,6 +90,11 @@ export async function POST(request: Request) {
       selectedChatModel: ChatModel['id'];
       selectedVisibilityType: VisibilityType;
     } = requestBody;
+
+    // Validate that the chat ID is a proper UUID
+    if (!UUID_REGEX.test(id)) {
+      return new ChatSDKError('bad_request:chat').toResponse();
+    }
 
     const supabase = await createClient();
     const {
@@ -242,6 +251,9 @@ export async function POST(request: Request) {
     if (error instanceof ChatSDKError) {
       return error.toResponse();
     }
+
+    console.error('Unexpected error in chat route:', error);
+    return new ChatSDKError('offline:chat').toResponse();
   }
 }
 
@@ -251,6 +263,11 @@ export async function DELETE(request: Request) {
 
   if (!id) {
     return new ChatSDKError('bad_request:api').toResponse();
+  }
+
+  // Validate that the chat ID is a proper UUID
+  if (!UUID_REGEX.test(id)) {
+    return new ChatSDKError('bad_request:chat').toResponse();
   }
 
   const supabase = await createClient();
