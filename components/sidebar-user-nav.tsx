@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useTheme } from 'next-themes';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import type { User } from '@supabase/supabase-js';
 
 import {

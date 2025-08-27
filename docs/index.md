@@ -6,38 +6,47 @@ Welcome to the comprehensive documentation for the Automatic Chat Template! This
 
 Perfect for developers new to the template:
 
-| Document | Description | Time Required |
-|----------|-------------|---------------|
-| **[Quick Start Guide](./getting-started/quick-start.md)** | Get up and running in under 10 minutes | 5-10 min |
-| **[Setup Guide](./getting-started/setup.md)** | Detailed setup instructions for all environments | 15-30 min |
+| Document                                                  | Description                                      | Time Required |
+| --------------------------------------------------------- | ------------------------------------------------ | ------------- |
+| **[Quick Start Guide](./getting-started/quick-start.md)** | Get up and running in under 10 minutes           | 5-10 min      |
+| **[Setup Guide](./getting-started/setup.md)**             | Detailed setup instructions for all environments | 15-30 min     |
 
 ## 🛠️ Development
 
 Everything needed for local development:
 
-| Document | Description | Use Case |
-|----------|-------------|----------|
-| **[Local Development](./development/local-development.md)** | Complete guide to local Supabase setup | Daily development |
-| **[Configuration Reference](./development/configuration.md)** | Environment variables and settings | Configuration |
-| **[Troubleshooting](./development/troubleshooting.md)** | Common issues and solutions | Problem solving |
+| Document                                                      | Description                            | Use Case          |
+| ------------------------------------------------------------- | -------------------------------------- | ----------------- |
+| **[Local Development](./development/local-development.md)**   | Complete guide to local Supabase setup | Daily development |
+| **[Configuration Reference](./development/configuration.md)** | Environment variables and settings     | Configuration     |
+| **[Troubleshooting](./development/troubleshooting.md)**       | Common issues and solutions            | Problem solving   |
 
 ## 🚀 Deployment
 
 Production deployment guides:
 
-| Document | Description | Platform |
-|----------|-------------|----------|
+| Document                                                | Description                          | Platform                    |
+| ------------------------------------------------------- | ------------------------------------ | --------------------------- |
 | **[Production Deployment](./deployment/production.md)** | Complete production deployment guide | Vercel, Docker, Self-hosted |
 
 ## 📚 Feature Guides
 
 Detailed guides for specific features:
 
-| Document | Description | Complexity |
-|----------|-------------|------------|
+| Document                                             | Description                        | Complexity   |
+| ---------------------------------------------------- | ---------------------------------- | ------------ |
 | **[Customization Guide](./guides/customization.md)** | Modify the template for your needs | Intermediate |
-| **[API Integration](./guides/api-integration.md)** | Adding custom APIs and providers | Advanced |
-| **[n8n Integration](./guides/n8n-integration.md)** | Workflow automation setup | Advanced |
+| **[API Integration](./guides/api-integration.md)**   | Adding custom APIs and providers   | Advanced     |
+| **[n8n Integration](./guides/n8n-integration.md)**   | Workflow automation setup          | Advanced     |
+
+## 🎯 Template-Specific Guides
+
+For template customization and publishing:
+
+| Document                                                        | Description                         | Target Audience     |
+| --------------------------------------------------------------- | ----------------------------------- | ------------------- |
+| **[Template Setup Guide](./TEMPLATE_SETUP.md)**                 | Step-by-step template customization | Template users      |
+| **[GitHub Template Checklist](./GITHUB_TEMPLATE_CHECKLIST.md)** | Publishing checklist                | Template publishers |
 
 ## 🔗 Quick Reference
 
@@ -55,16 +64,19 @@ Detailed guides for specific features:
 ### By Skill Level
 
 **🟢 Beginner**
+
 - [Quick Start Guide](./getting-started/quick-start.md)
 - [Setup Guide](./getting-started/setup.md)
 - [Configuration Reference](./development/configuration.md)
 
-**🟡 Intermediate**  
+**🟡 Intermediate**
+
 - [Local Development](./development/local-development.md)
 - [Production Deployment](./deployment/production.md)
 - [Customization Guide](./guides/customization.md)
 
 **🔴 Advanced**
+
 - [API Integration](./guides/api-integration.md)
 - [n8n Integration](./guides/n8n-integration.md)
 - [Troubleshooting](./development/troubleshooting.md)
@@ -72,25 +84,30 @@ Detailed guides for specific features:
 ### By Use Case
 
 **📱 Building a Chat App**
+
 1. [Quick Start Guide](./getting-started/quick-start.md)
 2. [Customization Guide](./guides/customization.md)
 3. [Production Deployment](./deployment/production.md)
 
 **🔧 Local Development**
+
 1. [Local Development](./development/local-development.md)
 2. [Configuration Reference](./development/configuration.md)
 3. [Troubleshooting](./development/troubleshooting.md)
 
 **🚀 Production Deployment**
+
 1. [Setup Guide](./getting-started/setup.md)
 2. [Production Deployment](./deployment/production.md)
 3. [Configuration Reference](./development/configuration.md)
 
 **🤖 AI Integration**
+
 1. [API Integration](./guides/api-integration.md)
 2. [Customization Guide](./guides/customization.md)
 
 **⚡ Workflow Automation**
+
 1. [n8n Integration](./guides/n8n-integration.md)
 2. [API Integration](./guides/api-integration.md)
 
@@ -109,10 +126,12 @@ docs/
 │   └── troubleshooting.md (common issues)
 ├── deployment/
 │   └── production.md (Vercel, Docker, hosting)
-└── guides/
-    ├── customization.md (UI, branding, features)
-    ├── api-integration.md (AI providers, custom APIs)
-    └── n8n-integration.md (workflow automation)
+├── guides/
+│   ├── customization.md (UI, branding, features)
+│   ├── api-integration.md (AI providers, custom APIs)
+│   └── n8n-integration.md (workflow automation)
+├── TEMPLATE_SETUP.md (template customization guide)
+└── GITHUB_TEMPLATE_CHECKLIST.md (template publishing guide)
 ```
 
 ## 🛟 Need Help?

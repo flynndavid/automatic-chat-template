@@ -32,9 +32,10 @@ import type { ArtifactKind } from '@/components/artifact';
 import type { VisibilityType } from '@/components/visibility-selector';
 import { ChatSDKError } from '../errors';
 
-// biome-ignore lint: Forbidden non-null assertion.
 // Detect if we're using local Supabase (no SSL) or hosted (requires SSL)
-const isLocal = process.env.POSTGRES_URL!.includes('localhost') || process.env.POSTGRES_URL!.includes('127.0.0.1');
+const isLocal =
+  process.env.POSTGRES_URL?.includes('localhost') ||
+  process.env.POSTGRES_URL?.includes('127.0.0.1');
 
 const client = postgres(process.env.POSTGRES_URL!, {
   ssl: isLocal ? false : 'require',

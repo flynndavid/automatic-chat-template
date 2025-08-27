@@ -44,7 +44,7 @@ This template ships with [xAI](https://x.ai) `grok-2-1212` as the default chat m
 The template includes built-in n8n workflow integration via the `/api/chat/simple-n8n` endpoint. This allows you to:
 
 - Trigger n8n workflows from chat conversations
-- Process data through complex automation pipelines  
+- Process data through complex automation pipelines
 - Integrate with external APIs and services
 - Create custom business logic workflows
 
@@ -55,6 +55,7 @@ See `app/(chat)/api/chat/simple-n8n.ts` for implementation details.
 Get started in under 10 minutes! Choose your preferred development path:
 
 ### 🏠 Local Development (Recommended)
+
 Perfect for new developers and experimentation:
 
 ```bash
@@ -68,13 +69,14 @@ pnpm supabase:start
 
 # 3. Configure environment
 cp .env.local.example .env.local
-# Edit .env.local with keys from supabase:start output
+# Edit .env.local with your API keys and the keys from supabase:start output
 
 # 4. Start development
 pnpm dev:local
 ```
 
 ### ☁️ Hosted Development
+
 Using hosted Supabase for development:
 
 ```bash
@@ -85,7 +87,7 @@ pnpm install
 
 # 2. Set up environment
 cp .env.example .env.local
-# Edit .env.local with your Supabase project credentials
+# Edit .env.local with your API keys and Supabase project credentials
 
 # 3. Run migrations
 pnpm db:migrate
@@ -133,13 +135,12 @@ SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
 POSTGRES_URL=your_postgres_connection_string
 
 # AI Providers (choose one or more)
-XAI_API_KEY=your_xai_key
 OPENAI_API_KEY=your_openai_key
 ANTHROPIC_API_KEY=your_anthropic_key
+XAI_API_KEY=your_xai_key
 
 # n8n Integration (optional)
-N8N_API_KEY=your_n8n_api_key
-N8N_BASE_URL=https://your-n8n-instance.com
+N8N_WEBHOOK_URL=https://your-n8n-instance.com/webhook/your-webhook-id
 ```
 
 ### Optional Environment Variables
@@ -211,12 +212,12 @@ This template supports full local development with a complete Supabase stack run
 
 When you run `pnpm supabase:start`, you get:
 
-| Service | URL | Description |
-|---------|-----|-------------|
-| **Supabase API** | `http://localhost:54321` | REST API, Auth, Realtime |
-| **PostgreSQL** | `localhost:54322` | Database server |
-| **Supabase Studio** | `http://localhost:54323` | Database management UI |
-| **Inbucket** | `http://localhost:54324` | Email testing server |
+| Service             | URL                      | Description              |
+| ------------------- | ------------------------ | ------------------------ |
+| **Supabase API**    | `http://localhost:54321` | REST API, Auth, Realtime |
+| **PostgreSQL**      | `localhost:54322`        | Database server          |
+| **Supabase Studio** | `http://localhost:54323` | Database management UI   |
+| **Inbucket**        | `http://localhost:54324` | Email testing server     |
 
 ### Quick Commands
 

@@ -1,4 +1,4 @@
-import { generateId } from 'ai';
+
 
 // Note: Password hashing is now handled by Supabase Auth
 // These functions are kept for backward compatibility during migration
