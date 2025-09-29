@@ -7,13 +7,7 @@ CREATE TABLE IF NOT EXISTS "profiles" (
 	"updated_at" timestamp with time zone DEFAULT now()
 );
 --> statement-breakpoint
-DROP TABLE "User";--> statement-breakpoint
-ALTER TABLE "Chat" DROP CONSTRAINT "Chat_userId_fkey";
---> statement-breakpoint
-ALTER TABLE "Document" DROP CONSTRAINT "Document_userId_fkey";
---> statement-breakpoint
-ALTER TABLE "Suggestion" DROP CONSTRAINT "Suggestion_userId_fkey";
---> statement-breakpoint
+DROP TABLE "User" CASCADE;--> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "profiles" ADD CONSTRAINT "profiles_agency_id_agencies_id_fk" FOREIGN KEY ("agency_id") REFERENCES "public"."agencies"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION

@@ -32,7 +32,7 @@ jobs:
         run: pnpm lint
 
       - name: Check formatting
-        run: pnpm format --check
+        run: pnpm format:check
 
   type-check:
     runs-on: ubuntu-latest
@@ -109,17 +109,28 @@ jobs:
       - name: Install Playwright browsers
         run: pnpm exec playwright install --with-deps
 
+      - name: Start Supabase services
+        run: pnpm exec supabase start
+
       - name: Run Playwright tests
         run: pnpm test
         env:
-          # Mock environment variables for testing
-          AUTH_SECRET: test-secret-key-32-characters-long
-          NEXT_PUBLIC_SUPABASE_URL: http://localhost:54321
-          SUPABASE_URL: http://localhost:54321
-          SUPABASE_ANON_KEY: test-anon-key
-          SUPABASE_SERVICE_ROLE_KEY: test-service-role-key
-          POSTGRES_URL: postgresql://test:test@localhost:5432/test
-          XAI_API_KEY: test-xai-key
+          # Environment variables for testing - use Supabase local defaults
+          AUTH_SECRET: test-secret-key-32-characters-long-abcd
+          NEXT_PUBLIC_SUPABASE_URL: http://127.0.0.1:54321
+          SUPABASE_URL: http://127.0.0.1:54321
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0
+          SUPABASE_SERVICE_ROLE_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImV4cCI6MTk4MzgxMjk5Nn0.EGIM96RAZx35lJzdJsyH-qQwv8Hdp7fsn3W0YpN81IU
+          POSTGRES_URL: postgresql://postgres:postgres@127.0.0.1:54322/postgres
+          # Mock AI API keys (tests don't need real ones)
+          OPENAI_API_KEY: sk-test-key-for-ci-environment
+          ANTHROPIC_API_KEY: sk-ant-test-key-for-ci-environment
+          N8N_WEBHOOK_URL: https://test-n8n-webhook.example.com/webhook/test
+          BLOB_READ_WRITE_TOKEN: placeholder_for_ci_testing
+
+      - name: Stop Supabase services
+        run: pnpm exec supabase stop
+        if: always()
 
       - name: Upload test results
         uses: actions/upload-artifact@v4

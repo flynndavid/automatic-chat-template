@@ -44,9 +44,9 @@ export default defineConfig({
   },
 
   /* Configure global timeout for each test */
-  timeout: 240 * 1000, // 120 seconds
+  timeout: 60 * 1000, // 60 seconds
   expect: {
-    timeout: 240 * 1000,
+    timeout: 30 * 1000, // 30 seconds
   },
 
   /* Configure projects */
@@ -99,8 +99,8 @@ export default defineConfig({
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: 'pnpm dev',
-    url: `${baseURL}/ping`,
+    command: process.env.CI ? 'pnpm dev:next-only' : 'pnpm dev',
+    url: `${baseURL}/api/health`,
     timeout: 120 * 1000,
     reuseExistingServer: !process.env.CI,
   },
