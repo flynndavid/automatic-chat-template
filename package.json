@@ -11,7 +11,7 @@
     "lint": "next lint && biome lint --write --unsafe",
     "lint:fix": "next lint --fix && biome lint --write --unsafe",
     "format": "biome format --write",
-    "format:check": "biome format --check",
+    "format:check": "biome ci --formatter-enabled=true --linter-enabled=false",
     "type-check": "tsc --noEmit",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "npx tsx lib/db/migrate.ts",
