@@ -258,7 +258,14 @@ const PurePreviewMessage = ({
                     <div key={toolCallId}>
                       <DocumentToolResult
                         type="update"
-                        result={{ ...output, kind: output.kind as "code" | "text" | "image" | "sheet" }}
+                        result={{
+                          ...output,
+                          kind: output.kind as
+                            | 'code'
+                            | 'text'
+                            | 'image'
+                            | 'sheet',
+                        }}
                         isReadonly={isReadonly}
                       />
                     </div>
@@ -300,7 +307,14 @@ const PurePreviewMessage = ({
                     <div key={toolCallId}>
                       <DocumentToolResult
                         type="request-suggestions"
-                        result={{ ...output, kind: output.kind as "code" | "text" | "image" | "sheet" }}
+                        result={{
+                          ...output,
+                          kind: output.kind as
+                            | 'code'
+                            | 'text'
+                            | 'image'
+                            | 'sheet',
+                        }}
                         isReadonly={isReadonly}
                       />
                     </div>

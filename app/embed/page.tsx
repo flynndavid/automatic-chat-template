@@ -92,7 +92,8 @@ export default function EmbedPage() {
                   : 'Loading widget demo...'}
               </p>
               <p className="text-xs text-muted-foreground">
-                Click it to see how your customers will interact with the AI assistant
+                Click it to see how your customers will interact with the AI
+                assistant
               </p>
             </div>
           </div>
@@ -157,8 +158,8 @@ export default function EmbedPage() {
             <div className="pt-2">
               <h3 className="text-sm font-medium mb-2">Organization ID</h3>
               <p className="text-sm text-muted-foreground">
-                Your unique organization identifier ensures all conversations are
-                properly tracked and associated with your account.
+                Your unique organization identifier ensures all conversations
+                are properly tracked and associated with your account.
               </p>
             </div>
           </div>

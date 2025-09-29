@@ -4,7 +4,9 @@ interface AuthCodeErrorProps {
   searchParams: Promise<{ error?: string }>;
 }
 
-export default async function AuthCodeError({ searchParams }: AuthCodeErrorProps) {
+export default async function AuthCodeError({
+  searchParams,
+}: AuthCodeErrorProps) {
   const { error } = await searchParams;
 
   const getErrorMessage = () => {

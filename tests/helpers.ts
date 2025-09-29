@@ -41,18 +41,18 @@ export async function createAuthenticatedContext({
   const password = generateId();
 
   await page.goto('http://localhost:3000/register');
-  
+
   // Wait for the registration form to be ready
   await expect(page.getByRole('heading')).toContainText('Sign Up');
-  
+
   const emailInput = page.getByPlaceholder('user@acme.com');
   const passwordInput = page.getByLabel('Password');
   const signUpButton = page.getByRole('button', { name: 'Sign Up' });
-  
+
   await expect(emailInput).toBeVisible();
   await expect(passwordInput).toBeVisible();
   await expect(signUpButton).toBeVisible();
-  
+
   await emailInput.click();
   await emailInput.fill(email);
   await passwordInput.click();
@@ -65,15 +65,17 @@ export async function createAuthenticatedContext({
 
   const chatPage = new ChatPage(page);
   await chatPage.createNewChat();
-  
+
   // Wait for chat page to load and ensure we're at the home page
   await page.waitForURL('/');
   await expect(page.getByPlaceholder('Send a message...')).toBeVisible();
-  
+
   // Try to select the reasoning model, but don't fail if it doesn't exist
   try {
     await chatPage.chooseModelFromSelector('chat-model-reasoning');
-    await expect(chatPage.getSelectedModel()).resolves.toEqual('Reasoning model');
+    await expect(chatPage.getSelectedModel()).resolves.toEqual(
+      'Reasoning model',
+    );
   } catch (error) {
     // If reasoning model isn't available, use default model
     console.log('Reasoning model not available, using default model');

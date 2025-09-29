@@ -23,9 +23,7 @@ export function DisclaimerDialog({ children }: DisclaimerDialogProps) {
         <AlertDialogContent className="max-w-2xl max-h-[80vh] p-0 flex flex-col">
           <div className="p-6 pb-0">
             <AlertDialogHeader className="shrink-0">
-              <AlertDialogTitle>
-                AI Assistant Disclaimer
-              </AlertDialogTitle>
+              <AlertDialogTitle>AI Assistant Disclaimer</AlertDialogTitle>
             </AlertDialogHeader>
           </div>
           <AlertDialogDescription asChild>
@@ -34,7 +32,8 @@ export function DisclaimerDialog({ children }: DisclaimerDialogProps) {
                 <p className="text-amber-800 font-medium text-sm">
                   ⚠️ This AI assistant provides general information and guidance.
                   For professional advice, legal matters, or critical decisions,
-                  please consult with qualified professionals or subject matter experts.
+                  please consult with qualified professionals or subject matter
+                  experts.
                 </p>
               </div>
 
@@ -55,7 +54,9 @@ export function DisclaimerDialog({ children }: DisclaimerDialogProps) {
                     Technical implementations should be validated by subject
                     matter experts
                   </li>
-                  <li>Complex scenarios may require specialized consultation</li>
+                  <li>
+                    Complex scenarios may require specialized consultation
+                  </li>
                 </ul>
               </div>
 
@@ -73,7 +74,8 @@ export function DisclaimerDialog({ children }: DisclaimerDialogProps) {
                     independently
                   </li>
                   <li>
-                    Complex interpretations may vary and require human validation
+                    Complex interpretations may vary and require human
+                    validation
                   </li>
                   <li>
                     This service cannot replace professional consultation in
@@ -96,9 +98,7 @@ export function DisclaimerDialog({ children }: DisclaimerDialogProps) {
                   <li>
                     Review our privacy policy for details on data handling
                   </li>
-                  <li>
-                    Consider data sensitivity when using AI assistance
-                  </li>
+                  <li>Consider data sensitivity when using AI assistance</li>
                 </ul>
               </div>
 
@@ -111,21 +111,25 @@ export function DisclaimerDialog({ children }: DisclaimerDialogProps) {
                     Use the AI assistant for general information and guidance
                   </li>
                   <li>
-                    Always verify important information from authoritative sources
+                    Always verify important information from authoritative
+                    sources
                   </li>
                   <li>
-                    Consult professionals for specialized advice and critical decisions
+                    Consult professionals for specialized advice and critical
+                    decisions
                   </li>
                   <li>
-                    Use your best judgment when acting on AI-generated suggestions
+                    Use your best judgment when acting on AI-generated
+                    suggestions
                   </li>
                 </ul>
               </div>
 
               <p className="text-xs text-muted-foreground border-t pt-3 mt-4">
-                By using this AI assistant, you acknowledge that this service provides
-                general guidance only and that important decisions should be made
-                in consultation with qualified professionals or subject matter experts.
+                By using this AI assistant, you acknowledge that this service
+                provides general guidance only and that important decisions
+                should be made in consultation with qualified professionals or
+                subject matter experts.
               </p>
             </div>
           </AlertDialogDescription>

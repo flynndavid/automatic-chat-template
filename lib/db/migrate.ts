@@ -13,8 +13,10 @@ const runMigrate = async () => {
   }
 
   // Detect if we're using local Supabase (no SSL) or hosted (requires SSL)
-  const isLocal = process.env.POSTGRES_URL.includes('localhost') || process.env.POSTGRES_URL.includes('127.0.0.1');
-  
+  const isLocal =
+    process.env.POSTGRES_URL.includes('localhost') ||
+    process.env.POSTGRES_URL.includes('127.0.0.1');
+
   const connection = postgres(process.env.POSTGRES_URL, {
     max: 1,
     ssl: isLocal ? false : 'require',
